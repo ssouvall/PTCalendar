@@ -23,7 +23,6 @@ namespace Calendar.Data
         public DbSet<Calendar.Models.Notification> Notification { get; set; }
         public DbSet<Calendar.Models.Patient> Patient { get; set; }
         public DbSet<Calendar.Models.PatientAttachment> PatientAttachment { get; set; }
-        public DbSet<Calendar.Models.Schedule> Schedule { get; set; }
         public DbSet<Calendar.Models.Visit> Visit { get; set; }
     }
 }

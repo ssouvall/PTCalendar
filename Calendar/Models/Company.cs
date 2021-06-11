@@ -33,6 +33,5 @@ namespace Calendar.Models
         public virtual ICollection<CalendarUser> Members { get; set; } = new HashSet<CalendarUser>();
         public virtual ICollection<Patient> Patients { get; set; } = new HashSet<Patient>();
         public virtual ICollection<Invite> Invites { get; set; } = new HashSet<Invite>();
-        public virtual ICollection<Schedule> Schedules { get; set; } = new HashSet<Schedule>();
     }
 }

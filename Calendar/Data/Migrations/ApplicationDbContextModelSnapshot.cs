@@ -26,9 +26,6 @@ namespace Calendar.Data.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("CalendarId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("CompanyId")
                         .HasColumnType("integer");
 
@@ -49,9 +46,6 @@ namespace Calendar.Data.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("ScheduleId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTimeOffset>("Start")
                         .HasColumnType("timestamp with time zone");
 
@@ -62,8 +56,6 @@ namespace Calendar.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PatientId");
-
-                    b.HasIndex("ScheduleId");
 
                     b.ToTable("Appointment");
                 });
@@ -267,9 +259,6 @@ namespace Calendar.Data.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("CalendarId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("CompanyId")
                         .HasColumnType("integer");
 
@@ -287,9 +276,6 @@ namespace Calendar.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("ScheduleId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTimeOffset>("Start")
                         .HasColumnType("timestamp with time zone");
 
@@ -298,8 +284,6 @@ namespace Calendar.Data.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ScheduleId");
 
                     b.ToTable("Event");
                 });
@@ -549,31 +533,6 @@ namespace Calendar.Data.Migrations
                     b.ToTable("PatientAttachment");
                 });
 
-            modelBuilder.Entity("Calendar.Models.Schedule", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Schedule");
-                });
-
             modelBuilder.Entity("Calendar.Models.Visit", b =>
                 {
                     b.Property<int>("Id")
@@ -762,10 +721,6 @@ namespace Calendar.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Calendar.Models.Schedule", null)
-                        .WithMany("Appointments")
-                        .HasForeignKey("ScheduleId");
-
                     b.Navigation("Patient");
                 });
 
@@ -820,13 +775,6 @@ namespace Calendar.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("Calendar.Models.Event", b =>
-                {
-                    b.HasOne("Calendar.Models.Schedule", null)
-                        .WithMany("Events")
-                        .HasForeignKey("ScheduleId");
                 });
 
             modelBuilder.Entity("Calendar.Models.Insurance", b =>
@@ -920,23 +868,6 @@ namespace Calendar.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Calendar.Models.Schedule", b =>
-                {
-                    b.HasOne("Calendar.Models.Company", "Company")
-                        .WithMany("Schedules")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Calendar.Models.CalendarUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Company");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Calendar.Models.Visit", b =>
                 {
                     b.HasOne("Calendar.Models.Patient", null)
@@ -1022,8 +953,6 @@ namespace Calendar.Data.Migrations
                     b.Navigation("Members");
 
                     b.Navigation("Patients");
-
-                    b.Navigation("Schedules");
                 });
 
             modelBuilder.Entity("Calendar.Models.Event", b =>
@@ -1046,13 +975,6 @@ namespace Calendar.Data.Migrations
                     b.Navigation("Notifications");
 
                     b.Navigation("Visits");
-                });
-
-            modelBuilder.Entity("Calendar.Models.Schedule", b =>
-                {
-                    b.Navigation("Appointments");
-
-                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }

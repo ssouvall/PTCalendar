@@ -10,7 +10,6 @@ namespace Calendar.Models
     {
         public int Id { get; set; }
         public int CompanyId { get; set; }
-        public int CalendarId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
