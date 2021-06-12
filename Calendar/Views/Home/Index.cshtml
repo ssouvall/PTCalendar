@@ -1,15 +1,18 @@
-﻿@{
+﻿@model Calendar.Models.ViewModels.HomeIndexViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <!-- App-content opened -->
 <div class="main-content">
     <div class="container">
-
         <!--Page header-->
         <div class="page-header d-lg-flex d-block">
             <div class="page-leftheader">
                 <h4 class="page-title">Calendar</h4>
+                <button id="eventBtn" class="btn btn-info" data-toggle="modal" data-target="#addEvent">
+                    New Event
+                </button>
             </div>
             <div class="page-rightheader ml-md-auto">
                 <div class=" btn-list">
@@ -32,3 +35,134 @@
         </div>
     </div>
 </div><!-- end app-content-->
+<!--Add Event Modal-->
+<div class="modal" id="addEvent">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add New Event</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" asp-controller="Events">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Event.CompanyId" class="control-label"></label>
+                            <input asp-for="@Model.Event.CompanyId" class="form-control" />
+                            <span asp-validation-for="@Model.Event.CompanyId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Event.Name" class="control-label"></label>
+                            <input asp-for="@Model.Event.Name" class="form-control" />
+                            <span asp-validation-for="@Model.Event.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Event.Type" class="control-label"></label>
+                            <input asp-for="@Model.Event.Type" class="form-control" />
+                            <span asp-validation-for="@Model.Event.Type" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Event.Description" class="control-label"></label>
+                            <input asp-for="@Model.Event.Description" class="form-control" />
+                            <span asp-validation-for="@Model.Event.Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Event.Date" class="control-label"></label>
+                            <input asp-for="@Model.Event.Date" class="form-control" />
+                            <span asp-validation-for="@Model.Event.Date" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Event.Start" class="control-label"></label>J
+                            <input asp-for="@Model.Event.Start" class="form-control" />
+                            <span asp-validation-for="@Model.Event.Start" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Event.End" class="control-label"></label>
+                            <input asp-for="@Model.Event.End" class="form-control" />
+                            <span asp-validation-for="@Model.Event.End" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Create" id="submit" class="btn btn-primary" />
+                        </div>
+                    </form>
+            </div>
+            <div class="modal-footer">
+
+                <a href="#" type="button" class="btn btn-secondary" data-dismiss="modal">Close</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--/Add Event Modal-->
+@*<script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                eventClick: function (info) {
+                    var eventObj = info.event;
+                    if (eventObj.start) {
+                        window.location.href = `Events/Details/${eventObj.id}`;
+                    }
+                },
+                initialView: 'dayGridWeek',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: @Model.events,
+
+            });
+
+            calendar.render();
+
+
+        });
+    
+    </script>*@
+@section scripts{ 
+<script src="~/assets/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+
+    $.ajax({
+        type: "POST",
+        url: "/Home/CalendarData",
+        data: '{}',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                eventClick: function (info) {
+                    var eventObj = info.event;
+                    if (eventObj.start) {
+                        window.location.href = `Events/Details/${eventObj.id}`;
+                    }
+                },
+                initialView: 'dayGridWeek',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: result,
+
+            });
+
+            calendar.render();
+        },
+        failure: function (result) {
+            alert(result.d);
+        },
+        error: function (result) {
+            alert(result.d);
+        }
+    });
+
+</script>
+    }
