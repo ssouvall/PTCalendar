@@ -57,7 +57,7 @@ namespace Calendar.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,DateOfBirth,Gender,Address,City,State,Zip,HomePhone,WorkPhone,CellPhone,FaxNumber,Email,CompanyId,AvatarFileName,AvatarFileData,AvatarContentType")] Patient patient)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,DateOfBirth,Gender,Address,City,State,Zip,HomePhone,WorkPhone,CellPhone,FaxNumber,ReasonForVisit,Email,CompanyId,AvatarFileName,AvatarFileData,AvatarContentType")] Patient patient)
         {
             if (ModelState.IsValid)
             {

@@ -14,7 +14,6 @@ namespace Calendar.Data
         {
         }
         public DbSet<Calendar.Models.Company> Company { get; set; }
-        public DbSet<Calendar.Models.Diagnosis> Diagnosis { get; set; }
         public DbSet<Calendar.Models.Appointment> Appointment { get; set; }
         public DbSet<Calendar.Models.AppointmentComment> AppointmentComment { get; set; }
         public DbSet<Calendar.Models.Event> Event { get; set; }

@@ -46,7 +46,7 @@ namespace Calendar.Controllers
                     id = item.Id.ToString(),
                     title = item.Name,
                     start = $"{item.Date.ToString("yyyy-MM-dd")}T{item.Start.TimeOfDay}",
-                    end = $"{item.Date.ToString("yyyy-MM-dd")}T{item.End.TimeOfDay}"
+                    end = $"{item.End.ToString("yyyy-MM-dd")}T{item.End.TimeOfDay}",
                 };
                 temp.Add(eventData);
             }

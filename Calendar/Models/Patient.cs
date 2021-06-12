@@ -36,6 +36,10 @@ namespace Calendar.Models
         [Required]
         [DisplayName("Date of Birth")]
         public DateTimeOffset DateOfBirth { get; set; }
+        
+        [Required]
+        [DisplayName("Reason for Visit")]
+        public string ReasonForVisit { get; set; }
 
         public string Gender { get; set; }
 
@@ -58,7 +62,6 @@ namespace Calendar.Models
         public string FaxNumber { get; set; }
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-
         public int CompanyId { get; set; }
 
         [NotMapped]
@@ -71,7 +74,6 @@ namespace Calendar.Models
         public string AvatarContentType { get; set; }
 
         public virtual Company Company { get; set; }
-        public virtual ICollection<Diagnosis> Diagnosis { get; set; } = new HashSet<Diagnosis>();
         public virtual ICollection<Visit> Visits { get; set; } = new HashSet<Visit>();
         public virtual ICollection<Appointment> Appointments { get; set; } = new HashSet<Appointment>();
         public virtual ICollection<Insurance> Insurances { get; set; } = new HashSet<Insurance>();

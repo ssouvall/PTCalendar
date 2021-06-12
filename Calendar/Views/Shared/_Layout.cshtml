@@ -76,7 +76,7 @@
             <!--aside open-->
             <aside class="app-sidebar" style="background:#191d43;">
                 <div class="app-sidebar__logo">
-                    <a class="header-brand" href="index.html">
+                    <a class="header-brand" asp-action="Index" asp-controller="Home">
                         <img src="../../assets/images/brand/logo-white.png" class="header-brand-img dark-logo w-75 mb-5 h-auto" alt="logo">
                         <img src="../../assets/images/brand/calendarFavicon.png" class="header-brand-img darkmobile-logo" alt="logo">
                     </a>
@@ -100,8 +100,8 @@
                                 <span class="side-menu__label">Patients</span><i class="angle fa fa-angle-right"></i>
                             </a>
                             <ul class="slide-menu">
-                                <li><a href="index.html" class="slide-item">All Patients</a></li>
-                                <li><a href="hr-department.html" class="slide-item">Add Patients</a></li>
+                                <li><a asp-action="Index" asp-controller="Patients" class="slide-item">All Patients</a></li>
+                                <li><a class="slide-item" asp-action="Create" asp-controller="Patients">Add Patients</a></li>
                                 <li><a href="hr-award.html" class="slide-item">Assign Patient</a></li>
                             </ul>
                         </li>
@@ -121,11 +121,12 @@
                                 <span class="side-menu__label">Insurance</span><i class="angle fa fa-angle-right"></i>
                             </a>
                             <ul class="slide-menu">
-                                <li><a href="index3.html" class="slide-item">All Insurances</a></li>
-                                <li><a href="task-list.html" class="slide-item">Add Insurance</a></li>
+                                <li><a class="slide-item" asp-action="Index" asp-controller="Insurances">All Insurances</a></li>
+                                <li><a class="slide-item" asp-action="Create" asp-controller="Insurances">Add Insurance</a></li>
                             </ul>
                         </li>
-                        
+                    </ul>
+
                 </div>
             </aside>
             <!--aside closed-->
@@ -347,18 +348,21 @@
     <!-- Back to top -->
     <a href="#top" id="back-to-top"><span class="feather feather-chevrons-up"></span></a>
 
-    <!-- Jquery js-->
-    <script src="../../assets/plugins/jquery/jquery.min.js"></script>
+
 
     <!--Moment js-->
     <script src="../../assets/plugins/moment/moment.js"></script>
 
     <!-- Bootstrap4 js-->
+    <script src="../../assets/plugins/jquery/jquery.min.js"></script>
     <script src="../../assets/plugins/bootstrap/popper.min.js"></script>
     <script src="../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 
     <!--Othercharts js-->
     <script src="../../assets/plugins/othercharts/jquery.sparkline.min.js"></script>
+
+    <!-- Sweetalert2-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!--Sidemenu js-->
     <script src="../../assets/plugins/sidemenu/sidemenu.js"></script>
@@ -382,6 +386,7 @@
 
     <!-- INTERNAL Apexchart js-->
     <script src="../../assets/plugins/apexchart/apexcharts.js"></script>
+
 
     <!--FullCalendar-->
     <script src="//cdn.jsdelivr.net/npm/fullcalendar@5.7.2/main.min.js"></script>

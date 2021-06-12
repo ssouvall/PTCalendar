@@ -23,9 +23,6 @@ namespace Calendar.Models
         [Display(Name = "End Time")]
         public DateTimeOffset End { get; set; }
 
-        [Display(Name = "Treating Therapist")]
-        public CalendarUser TreatingTherapist { get; set; }
-
         [Required]
         public string Subjective { get; set; }
 

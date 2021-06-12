@@ -227,31 +227,6 @@ namespace Calendar.Data.Migrations
                     b.ToTable("Company");
                 });
 
-            modelBuilder.Entity("Calendar.Models.Diagnosis", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("PatientId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("Diagnosis");
-                });
-
             modelBuilder.Entity("Calendar.Models.Event", b =>
                 {
                     b.Property<int>("Id")
@@ -474,6 +449,10 @@ namespace Calendar.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<string>("ReasonForVisit")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("State")
                         .HasColumnType("text");
 
@@ -568,17 +547,12 @@ namespace Calendar.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("TreatingTherapistId")
-                        .HasColumnType("text");
-
                     b.Property<string>("VisitType")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PatientId");
-
-                    b.HasIndex("TreatingTherapistId");
 
                     b.ToTable("Visit");
                 });
@@ -766,17 +740,6 @@ namespace Calendar.Data.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("Calendar.Models.Diagnosis", b =>
-                {
-                    b.HasOne("Calendar.Models.Patient", "Patient")
-                        .WithMany("Diagnosis")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Patient");
-                });
-
             modelBuilder.Entity("Calendar.Models.Insurance", b =>
                 {
                     b.HasOne("Calendar.Models.Patient", "Patient")
@@ -875,12 +838,6 @@ namespace Calendar.Data.Migrations
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Calendar.Models.CalendarUser", "TreatingTherapist")
-                        .WithMany()
-                        .HasForeignKey("TreatingTherapistId");
-
-                    b.Navigation("TreatingTherapist");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -967,8 +924,6 @@ namespace Calendar.Data.Migrations
                     b.Navigation("Appointments");
 
                     b.Navigation("Attachments");
-
-                    b.Navigation("Diagnosis");
 
                     b.Navigation("Insurances");
 

@@ -47,46 +47,46 @@
             </div>
             <div class="modal-body">
                 <form asp-action="Create" asp-controller="Events">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group">
-                            <label asp-for="@Model.Event.CompanyId" class="control-label"></label>
-                            <input asp-for="@Model.Event.CompanyId" class="form-control" />
-                            <span asp-validation-for="@Model.Event.CompanyId" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.Event.Name" class="control-label"></label>
-                            <input asp-for="@Model.Event.Name" class="form-control" />
-                            <span asp-validation-for="@Model.Event.Name" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.Event.Type" class="control-label"></label>
-                            <input asp-for="@Model.Event.Type" class="form-control" />
-                            <span asp-validation-for="@Model.Event.Type" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.Event.Description" class="control-label"></label>
-                            <input asp-for="@Model.Event.Description" class="form-control" />
-                            <span asp-validation-for="@Model.Event.Description" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.Event.Date" class="control-label"></label>
-                            <input asp-for="@Model.Event.Date" class="form-control" />
-                            <span asp-validation-for="@Model.Event.Date" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.Event.Start" class="control-label"></label>J
-                            <input asp-for="@Model.Event.Start" class="form-control" />
-                            <span asp-validation-for="@Model.Event.Start" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.Event.End" class="control-label"></label>
-                            <input asp-for="@Model.Event.End" class="form-control" />
-                            <span asp-validation-for="@Model.Event.End" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Create" id="submit" class="btn btn-primary" />
-                        </div>
-                    </form>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Event.CompanyId" class="control-label"></label>
+                        <input asp-for="@Model.Event.CompanyId" class="form-control" />
+                        <span asp-validation-for="@Model.Event.CompanyId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Event.Name" class="control-label"></label>
+                        <input asp-for="@Model.Event.Name" class="form-control" />
+                        <span asp-validation-for="@Model.Event.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Event.Type" class="control-label"></label>
+                        <input asp-for="@Model.Event.Type" class="form-control" />
+                        <span asp-validation-for="@Model.Event.Type" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Event.Description" class="control-label"></label>
+                        <input asp-for="@Model.Event.Description" class="form-control" />
+                        <span asp-validation-for="@Model.Event.Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Event.Date" class="control-label"></label>
+                        <input asp-for="@Model.Event.Date" class="form-control" />
+                        <span asp-validation-for="@Model.Event.Date" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Event.Start" class="control-label"></label>J
+                        <input asp-for="@Model.Event.Start" class="form-control" />
+                        <span asp-validation-for="@Model.Event.Start" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Event.End" class="control-label"></label>
+                        <input asp-for="@Model.Event.End" class="form-control" />
+                        <span asp-validation-for="@Model.Event.End" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" id="submit" class="btn btn-primary" />
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
 
@@ -96,73 +96,89 @@
         </div>
     </div>
 </div>
-<!--/Add Event Modal-->
-@*<script>
-        document.addEventListener('DOMContentLoaded', function () {
+<div class="modal" id="detailsModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body details-modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @*<script src="~/assets/plugins/jquery/jquery.min.js"></script>*@
+    <script type="text/javascript">
 
+        $.ajax({
+            type: "POST",
+            url: "/Home/CalendarData",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    eventClick: function (info) {
+                        var eventObj = info.event;
+                        if (eventObj.start) {
+                            Swal.fire({
+                                title: eventObj.title,
+                                icon: 'info',
+                                html:
+                                    `<h6>Event Start: ${eventObj.start}</h6><br>` +
+                                    `<h6>Event End: ${eventObj.end}</h6>`,
+                                showCloseButton: true,
+                                showCancelButton: true,
+                                showDenyButton: true,
+                                focusConfirm: false,
+                                cancelButtonText:
+                                    'Close',
+                                cancelButtonAriaLabel: 'Close',
+                                denyButtonText:
+                                    `<div id="swalDelete">Delete Event</div>`,
+                                confirmButtonText:
+                                    `Edit Event`
+                                    }).then((result) => {
+                                        if (result.value) {
+                                            window.location.href = `/Events/Edit/${eventObj.id}`
+                                }
+                                    })
+                            $(document).on('click', "#swalDelete", function () {
+                                window.location.href = `/Events/Delete/${eventObj.id}`
+                            });
+                            console.log(eventObj);
+                        }
+                    },
+                    initialView: 'dayGridWeek',
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
+                    events: result,
+                    editable: true,
 
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                eventClick: function (info) {
-                    var eventObj = info.event;
-                    if (eventObj.start) {
-                        window.location.href = `Events/Details/${eventObj.id}`;
-                    }
-                },
-                initialView: 'dayGridWeek',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                events: @Model.events,
+                });
 
-            });
-
-            calendar.render();
-
-
+                calendar.render();
+            },
+            failure: function (result) {
+                alert(result.d);
+            },
+            error: function (result) {
+                alert(result.d);
+            }
         });
-    
-    </script>*@
-@section scripts{ 
-<script src="~/assets/plugins/jquery/jquery.min.js"></script>
-<script type="text/javascript">
 
-    $.ajax({
-        type: "POST",
-        url: "/Home/CalendarData",
-        data: '{}',
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                eventClick: function (info) {
-                    var eventObj = info.event;
-                    if (eventObj.start) {
-                        window.location.href = `Events/Details/${eventObj.id}`;
-                    }
-                },
-                initialView: 'dayGridWeek',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                events: result,
-
-            });
-
-            calendar.render();
-        },
-        failure: function (result) {
-            alert(result.d);
-        },
-        error: function (result) {
-            alert(result.d);
-        }
-    });
-
-</script>
-    }
+    </script>
+}

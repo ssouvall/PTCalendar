@@ -288,6 +288,7 @@ namespace Calendar.Data.Migrations
                     FirstName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     LastName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     DateOfBirth = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    ReasonForVisit = table.Column<string>(type: "text", nullable: false),
                     Gender = table.Column<string>(type: "text", nullable: true),
                     Address = table.Column<string>(type: "text", nullable: true),
                     City = table.Column<string>(type: "text", nullable: true),
@@ -341,27 +342,6 @@ namespace Calendar.Data.Migrations
                     table.PrimaryKey("PK_Appointment", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Appointment_Patient_PatientId",
-                        column: x => x.PatientId,
-                        principalTable: "Patient",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Diagnosis",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PatientId = table.Column<int>(type: "integer", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Code = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Diagnosis", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Diagnosis_Patient_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patient",
                         principalColumn: "Id",
@@ -474,7 +454,6 @@ namespace Calendar.Data.Migrations
                     Date = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     Start = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     End = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    TreatingTherapistId = table.Column<string>(type: "text", nullable: true),
                     Subjective = table.Column<string>(type: "text", nullable: false),
                     Objective = table.Column<string>(type: "text", nullable: false),
                     Assessment = table.Column<string>(type: "text", nullable: false),
@@ -483,12 +462,6 @@ namespace Calendar.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Visit", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Visit_AspNetUsers_TreatingTherapistId",
-                        column: x => x.TreatingTherapistId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Visit_Patient_PatientId",
                         column: x => x.PatientId,
@@ -575,11 +548,6 @@ namespace Calendar.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Diagnosis_PatientId",
-                table: "Diagnosis",
-                column: "PatientId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Insurance_PatientId",
                 table: "Insurance",
                 column: "PatientId");
@@ -639,11 +607,6 @@ namespace Calendar.Data.Migrations
                 table: "Visit",
                 column: "PatientId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Visit_TreatingTherapistId",
-                table: "Visit",
-                column: "TreatingTherapistId");
-
             migrationBuilder.AddForeignKey(
                 name: "FK_AppointmentComment_Appointment_AppointmentId",
                 table: "AppointmentComment",
@@ -692,9 +655,6 @@ namespace Calendar.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "Diagnosis");
 
             migrationBuilder.DropTable(
                 name: "Insurance");

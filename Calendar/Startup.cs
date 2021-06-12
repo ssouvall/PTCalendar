@@ -30,7 +30,7 @@ namespace Calendar
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    DataUtility.GetConnectionString(Configuration)));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddIdentity<CalendarUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
