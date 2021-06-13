@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Calendar.Data;
 using Calendar.Models;
+using Calendar.Models.ViewModels;
+using X.PagedList;
 
 namespace Calendar.Controllers
 {
@@ -20,10 +22,13 @@ namespace Calendar.Controllers
         }
 
         // GET: Patients
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
-            var applicationDbContext = _context.Patient.Include(p => p.Company);
-            return View(await applicationDbContext.ToListAsync());
+            var pageNumber = page ?? 1;
+            var pageSize = 10;
+
+            var applicationDbContext = _context.Patient.Include(p => p.Company).OrderBy(p => p.LastName);
+            return View(await applicationDbContext.ToPagedListAsync(pageNumber, pageSize));
         }
 
         // GET: Patients/Details/5
@@ -36,13 +41,24 @@ namespace Calendar.Controllers
 
             var patient = await _context.Patient
                 .Include(p => p.Company)
+                .Include(p => p.Visits)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            List<Visit> visits = await _context.Visit.Where(p => p.PatientId == patient.Id).ToListAsync();
+
+            PatientDetailsViewModel model = new()
+            {
+                Patient = patient,
+                Visits = visits
+            };
+
+            
             if (patient == null)
             {
                 return NotFound();
             }
 
-            return View(patient);
+            return View(model);
         }
 
         // GET: Patients/Create

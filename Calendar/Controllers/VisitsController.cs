@@ -46,6 +46,9 @@ namespace Calendar.Controllers
         // GET: Visits/Create
         public IActionResult Create()
         {
+
+            ViewData["PatientId"] = new SelectList(_context.Patient, "Id", "FullName");
+
             return View();
         }
 
