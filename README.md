@@ -34,7 +34,6 @@ Pro-Chart is a calendar and mock physical therapy electronic medical records app
 -Create, read, update, and delete a patient chart
 -A physical therapist (when logged in) can create, update, and delete individual visit notes 
 
-###Tools Used:
 ![Image of HTML5 shield](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![Image of CSS shield](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white
 ) ![Image of JavaScript shield](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![Image of Bootstrap logo](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white) ![Image of C# Logo](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white) ![Image of .NET logo](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
  ![Image of JQuery logo](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
