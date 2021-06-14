@@ -9,23 +9,8 @@
         <!--Page header-->
         <div class="page-header d-lg-flex d-block">
             <div class="page-leftheader">
-                @{
-                    var objDate = DateTime.Now;
-                    var hours = objDate.ToString("HH");
-                    var intHours = Int16.Parse(hours);
-
-                }
-                @if (intHours < 12 && intHours <= 0) {
-                <h4 class="page-title">Good Morning, Active Physical Therapy!</h4>
-                }
-                else if (intHours >= 12 && intHours <= 17) {
-                <h4 class="page-title">Good Afternoon, Active Physical Therapy!</h4>
-                }
-                else {
-                <h4 class="page-title">Good Evening, Active Physical Therapy!</h4>
-                }
-
-                @*<a id="eventBtn" class="btn btn-info" data-toggle="modal" data-target="#addEvent">*@
+                
+                <h4 class="page-title">Welcome, Active Physical Therapy!</h4>
                 
             </div>
             <div class="page-rightheader ml-md-auto">

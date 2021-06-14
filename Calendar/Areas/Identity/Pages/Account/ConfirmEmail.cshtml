@@ -1,7 +1,9 @@
 ﻿@page
 @model ConfirmEmailModel
 @{
-    ViewData["Title"] = "Confirm email";
+    ViewData["Title"] = "Email Confirmed!";
+    Layout = "/Views/Shared/_LoginLayout.cshtml";
 }
 
 <h1>@ViewData["Title"]</h1>
+<a class="btn btn-primary btn-lg" asp-area="Identity" asp-page="/Account/Login">Click Here to Login</a>
