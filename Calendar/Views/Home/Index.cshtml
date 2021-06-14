@@ -134,34 +134,35 @@
                     eventClick: function (info) {
                         var eventObj = info.event;
                         if (eventObj.start) {
-                            Swal.fire({
-                                title: eventObj.title,
-                                html:
-                                    `<p>Event Start: ${eventObj.start}</p><br>` +
-                                    `<p>Event End: ${eventObj.end}</p>` +
-                                    `<p>Event Visit Type: ${eventObj.type}</p><br>`,
-                                showCloseButton: true,
-                                showCancelButton: true,
-                                showDenyButton: true,
-                                focusConfirm: false,
-                                cancelButtonText:
-                                    `<div id="swalDetails">Details Event</div>`,
-                                cancelButtonAriaLabel: 'Close',
-                                denyButtonText:
-                                    `<div id="swalDelete">Delete Event</div>`,
-                                confirmButtonText:
-                                    `Edit Event`
-                                    }).then((result) => {
-                                        if (result.value) {
-                                            window.location.href = `/Events/Edit/${eventObj.id}`
-                                }
-                                    })
-                            $(document).on('click', "#swalDelete", function () {
-                                window.location.href = `/Events/Delete/${eventObj.id}`
-                            });
-                            $(document).on('click', "#swalDetails", function () {
-                                window.location.href = `/Patients/Details/${eventObj.patientId}`
-                            });
+                            window.location.href = `/Events/Details/${eventObj.id}`
+                            //Swal.fire({
+                            //    title: eventObj.title,
+                            //    html:
+                            //        `<p>Event Start: ${eventObj.start}</p><br>` +
+                            //        `<p>Event End: ${eventObj.end}</p>` +
+                            //        `<p>Event Visit Type: ${eventObj.type}</p><br>`,
+                            //    showCloseButton: true,
+                            //    showCancelButton: true,
+                            //    showDenyButton: true,
+                            //    focusConfirm: false,
+                            //    cancelButtonText:
+                            //        `<div id="swalDetails">Details Event</div>`,
+                            //    cancelButtonAriaLabel: 'Close',
+                            //    denyButtonText:
+                            //        `<div id="swalDelete">Delete Event</div>`,
+                            //    confirmButtonText:
+                            //        `Edit Event`
+                            //        }).then((result) => {
+                            //            if (result.value) {
+                            //                window.location.href = `/Events/Edit/${eventObj.id}`
+                            //    }
+                            //        })
+                            //$(document).on('click', "#swalDelete", function () {
+                            //    window.location.href = `/Events/Delete/${eventObj.id}`
+                            //});
+                            //$(document).on('click', "#swalDetails", function () {
+                            //    window.location.href = `/Patients/Details/${eventObj.patientId}`
+                            //});
                         }
                     },
                     initialView: 'timeGridWeek',

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Calendar.Data;
 using Calendar.Models;
 using Microsoft.AspNetCore.Authorization;
+using Calendar.Models.ViewModels;
 
 namespace Calendar.Controllers
 {   
@@ -38,14 +39,24 @@ namespace Calendar.Controllers
                 return NotFound();
             }
 
+            
+
             var @event = await _context.Event
                 .FirstOrDefaultAsync(m => m.Id == id);
+            Patient Patient = await _context.Patient.FirstOrDefaultAsync(p => p.Id == @event.PatientId);
+            
             if (@event == null)
             {
                 return NotFound();
             }
 
-            return View(@event);
+            EventDetailsViewModel model = new()
+            {
+                Event = @event,
+                Patient = Patient
+            };
+
+            return View(model);
         }
 
         // GET: Events/Create
