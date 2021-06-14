@@ -58,122 +58,57 @@
 
     <!--Custom Styles-->
     <link href="../../css/site.css" rel="stylesheet" />
-    //Calendar css file
-    bundles.Add(new StyleBundle("~/Content/fullcalendarcss").Include(
-    "~/Content/themes/jquery.ui.all.css",
-    "~/Content/fullcalendar.css"));
 
 
 </head>
 
-<body class="app sidebar-mini dark-mode">
-
-    <!---Global-loader-->
-    @*<div id="global-loader">
-        <img src="../../assets/images/svgs/loader.svg" alt="loader">
-    </div>*@
-
+<body class="app dark-mode">
     <div class="page">
-        <div class="page-main">
+			<div class="page-main">
 
-            <!--aside open-->
-            <aside class="app-sidebar" style="background:#191d43;">
-                <div class="app-sidebar__logo">
-                    <a class="header-brand" asp-action="Index" asp-controller="Home">
-                        <img src="../../assets/images/brand/logo-white.png" class="header-brand-img dark-logo w-75 mb-5 h-auto" alt="logo">
-                        <img src="../../assets/images/brand/calendarFavicon.png" class="header-brand-img darkmobile-logo" alt="logo">
+    <!--app header-->
+    <div class="hor-header header">
+        <div class="container">
+            <div class="d-flex">
+                <a class="animated-arrow hor-toggle horizontal-navtoggle"><span></span></a>
+                <a class="header-brand" asp-action="Index" asp-controller="Home">
+                    @*<img src="../../assets/images/brand/logo.png" class="header-brand-img desktop-lgo" alt="Dayonelogo">*@
+                    <img src="../../assets/images/brand/logo-white.png" class="header-brand-img dark-logo w-50 h-auto" alt="Dayonelogo">
+                    @*<img src="../../assets/images/brand/favicon.png" class="header-brand-img mobile-logo" alt="Dayonelogo">*@
+                    <img src="../../assets/images/brand/favicon1.png" class="header-brand-img darkmobile-logo" alt="Dayonelogo">
+                </a>
+                <div class="d-flex order-lg-2 my-auto ml-auto">
+                    <a class="nav-link my-auto icon p-0 nav-link-lg d-md-none navsearch" href="#" data-toggle="search">
+                        <i class="feather feather-search search-icon header-icon"></i>
                     </a>
-                </div>
-                <div class="app-sidebar3">
-                    <div class="app-sidebar__user">
-                        <div class="dropdown user-pro-body text-center">
-                            <a class="header-brand" asp-action="Index" asp-controller="Home">
-                                <img src="https://i.ibb.co/GW3wrG1/activePt.png" alt="activePt" border="0" class="w-75 h-auto">
-                            </a>
-                        </div>
+                    <h5 class="m-4">Welcome, Active Physical Therapy!</h5>
+                    <div class="dropdown header-fullscreen">
+                        <a class="nav-link icon full-screen-link">
+                            <i class="feather feather-maximize fullscreen-button fullscreen header-icons"></i>
+                            <i class="feather feather-minimize fullscreen-button exit-fullscreen header-icons"></i>
+                        </a>
                     </div>
-                    <ul class="side-menu">
-                        <li class="slide">
-                            <a class="side-menu__item" asp-action="Index" asp-controller="Patients">
-                                <i class="feather feather-home sidemenu_icon"></i>
-                                <span class="side-menu__label">All Patients</span>
-                            </a>
-                        </li>
-                        <li class="slide">
-                            <a class="side-menu__item" asp-action="Create" asp-controller="Patients">
-                                <i class="fas fa-user-plus sidemenu_icon"></i>
-                                <span class="side-menu__label">Add Patient</span>
-                            </a>
-                        </li>
-                    </ul>
-
-                </div>
-            </aside>
-            <!--aside closed-->
-
-            <div class="app-content main-content">
-                <div class="side-app">
-
-                    <!--app header-->
-                    <div class="app-header header">
-                        <div class="container-fluid">
-                            <div class="d-flex">
-                                <a class="header-brand" href="index.html">
-                                    <img src="../../assets/images/brand/logo.png" class="header-brand-img desktop-lgo" alt="Dayonelogo">
-                                    <img src="../../assets/images/brand/logo-white.png" class="header-brand-img dark-logo" alt="Dayonelogo">
-                                    <img src="../../assets/images/brand/favicon.png" class="header-brand-img mobile-logo" alt="Dayonelogo">
-                                    <img src="../../assets/images/brand/favicon1.png" class="header-brand-img darkmobile-logo" alt="Dayonelogo">
-                                </a>
-                                <div class="app-sidebar__toggle" data-toggle="sidebar">
-                                    <a class="open-toggle" href="#">
-                                        <i class="feather feather-menu"></i>
-                                    </a>
-                                    <a class="close-toggle" href="#">
-                                        <i class="feather feather-x"></i>
-                                    </a>
-                                </div>
-                                <div class="mt-0">
-                                    <form class="form-inline">
-                                        <div class="search-element">
-                                            <input type="search" class="form-control header-search" placeholder="Search…" aria-label="Search" tabindex="1">
-                                            <button class="btn btn-primary-color">
-                                                <i class="feather feather-search"></i>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div><!-- SEARCH -->
-                                <div class="d-flex order-lg-2 my-auto ml-auto">
-                                    <a class="nav-link my-auto icon p-0 nav-link-lg d-md-none navsearch" href="#" data-toggle="search">
-                                        <i class="feather feather-search search-icon header-icon"></i>
-                                    </a>
-                                    <div class="dropdown header-fullscreen">
-                                        <a class="nav-link icon full-screen-link">
-                                            <i class="feather feather-maximize fullscreen-button fullscreen header-icons"></i>
-                                            <i class="feather feather-minimize fullscreen-button exit-fullscreen header-icons"></i>
-                                        </a>
-                                    </div>
-                                    <div class="dropdown profile-dropdown">
-                                        <a href="#" class="nav-link pr-1 pl-0 leading-none" data-toggle="dropdown">
-                                            <span>
-                                                <img src="https://i.ibb.co/HCkGNQZ/Active-Physical-Th-Erapy-1.png" alt="Active-Physical-Therapy-1" border="0" class="avatar avatar-md bradius">
-                                            </span>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated">
-                                            <div class="dropdown-item d-flex">
-                                                <i class="feather feather-power mr-3 fs-16 my-auto"></i>
-                                                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="dropdown profile-dropdown">
+                        <a href="#" class="nav-link pr-1 pl-0 leading-none" data-toggle="dropdown">
+                            <span>
+                                <img src="https://i.ibb.co/HCkGNQZ/Active-Physical-Th-Erapy-1.png" alt="Active-Physical-Therapy-1" border="0" class="avatar avatar-md bradius">
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated">
+                            <div class="dropdown-item d-flex">
+                                <i class="feather feather-power mr-3 fs-16 my-auto"></i>
+                                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--/app header-->
+        </div>
+    </div>
+    <!--/app header-->
+   
             <div class="container">
                 <main role="main">
                     @RenderBody()

@@ -4,58 +4,59 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
-<div class="card mt-5">
-    <div class="card-header border-bottom-0">
-        <h3 class="card-title">Edit Appointment</h3>
-    </div>
-    <form asp-action="Edit" asp-controller="Events">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="Id" />
-        <div class="card-body">
-            <div class="form-group">
-                <div class="input-group">
-                    <select asp-for="Type" type="text" class="form-control" placeholder="Select Appointment Type" asp-items="Html.GetEnumSelectList<EventType>()">
-                    </select>
-                    <span asp-validation-for="Type" class="text-danger"></span>
-                    <select asp-for="PatientId" class="form-control" asp-items="ViewBag.PatientId">
-                        <option>-select a patient-</option>
-                    </select>
-                    <span asp-validation-for="PatientId" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <input asp-for="Name" class="form-control" placeholder="Appointment Name" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                    <input type="text" asp-for="Date" class="form-control textbox-n" placeholder="Appointment Date" onfocus="(this.type='date')" />
-                    <span asp-validation-for="Date" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group mb-3">
-                <div class="input-group">
-
-                    <input asp-for="Start" type="text" class="form-control textbox-n" placeholder="Appointment Start Time" onfocus="(this.type='time')" />
-                    <span asp-validation-for="Start" class="text-danger"></span>
-                    <input asp-for="End" type="text" class="form-control textbox-n" placeholder="Appointment End Time" onfocus="(this.type='time')" />
-                    <span asp-validation-for="End" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <input asp-for="Description" class="form-control" placeholder="Description" />
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Edit" class="btn btn-primary" /> |
-                <a asp-action="Index" asp-controller="Home" class="btn btn-outline-primary">Back</a>
-            </div>
+<section class="calendar-section">
+    <div class="card mt-5">
+        <div class="card-header border-bottom-0">
+            <h3 class="card-title">Edit Appointment</h3>
         </div>
-    </form>
+        <form asp-action="Edit" asp-controller="Events">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="input-group">
+                        <select asp-for="Type" type="text" class="form-control" placeholder="Select Appointment Type" asp-items="Html.GetEnumSelectList<EventType>()">
+                        </select>
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                        <select asp-for="PatientId" class="form-control" asp-items="ViewBag.PatientId">
+                            <option>-select a patient-</option>
+                        </select>
+                        <span asp-validation-for="PatientId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input asp-for="Name" class="form-control" placeholder="Appointment Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <input type="text" asp-for="Date" class="form-control textbox-n" placeholder="Appointment Date" onfocus="(this.type='date')" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div class="input-group">
 
-</div>
+                        <input asp-for="Start" type="text" class="form-control textbox-n" placeholder="Appointment Start Time" onfocus="(this.type='time')" />
+                        <span asp-validation-for="Start" class="text-danger"></span>
+                        <input asp-for="End" type="text" class="form-control textbox-n" placeholder="Appointment End Time" onfocus="(this.type='time')" />
+                        <span asp-validation-for="End" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input asp-for="Description" class="form-control" placeholder="Description" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Edit" class="btn btn-primary" /> |
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-outline-primary">Back</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</section>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

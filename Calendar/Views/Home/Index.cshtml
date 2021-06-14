@@ -5,18 +5,26 @@
 
 <!-- App-content opened -->
 <div class="main-content">
-    <div class="container">
         <!--Page header-->
         <div class="page-header d-lg-flex d-block">
             <div class="page-leftheader">
+                <div class="row">
+                    <div class="col-6">
+                        <img src="https://i.ibb.co/GW3wrG1/activePt.png" alt="activePt" border="0">
+                    </div>
+                </div>
                 
-                <h4 class="page-title">Welcome, Active Physical Therapy!</h4>
                 
             </div>
-            <div class="page-rightheader ml-md-auto">
+            <div class="page-rightheader ml-md-auto mt-5">
                 <div class=" btn-list">
+                    <a class="btn btn-primary" asp-action="Index" asp-controller="Patients">
+                        All Patients <i class="feather feather-home sidemenu_icon"></i>
+                    </a>
+                     <a class="btn btn-success" asp-action="Create" asp-controller="Patients">
+                        Add Patient <i class="fas fa-user-plus sidemenu_icon"></i>
+                    </a>
                     <a id="eventBtn" class="btn btn-info" asp-action="Create" asp-controller="Events">
-
                         Add New Appointment <i class="fas fa-lg fa-plus"></i>
                     </a>
                 </div>
@@ -32,9 +40,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div><!-- end app-content-->
+        </div> 
+</div>
+    <!-- end app-content-->
 <!--Add Event Modal-->
 <div class="modal" id="addEvent">
     <div class="modal-dialog">

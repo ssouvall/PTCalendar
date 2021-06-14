@@ -3,14 +3,14 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<div class="card pl-5 pr-5 pb-5 shadow">
-    <p class="card-body pl-5 pr-5 pb-5">
-        <h1 class="mb-4 font-weight-semibold">@Model.Patient.FullName</h1>
-        <h4>@Model.Visit.Date.ToString("MMM dd, yyyy")</h4>
-        <small>Start time: @Model.Visit.Start.ToLocalTime()</small>
-        <small>End time: @Model.Visit.End.ToLocalTime()</small>
-        <br />
+<section class="calendar-section">
+    <div class="card pl-5 pr-5 pb-5 shadow">
+        <p class="card-body pl-5 pr-5 pb-5">
+            <h1 class="mb-4 font-weight-semibold">@Model.Patient.FullName</h1>
+            <h4>@Model.Visit.Date.ToString("MMM dd, yyyy")</h4>
+            <small>Start time: @Model.Visit.Start.ToLocalTime()</small>
+            <small>End time: @Model.Visit.End.ToLocalTime()</small>
+            <br />
         <p><strong>Visit Type:</strong></p>
         @{
             string visitType = Model.Visit.VisitType;
@@ -37,10 +37,11 @@
         <p>@Model.Visit.Plan</p>
 
         <div>
-            @if(User.IsInRole("PhysicalTherapist"))
-            { 
-            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Visit.Id">Edit</a> 
+            @if (User.IsInRole("PhysicalTherapist"))
+            {
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Visit.Id">Edit</a>
             }
             <a class="btn btn-outline-primary" asp-action="Details" asp-controller="Patients" asp-route-id="@Model.Patient.Id">Back</a>
         </div>
     </div>
+</section>

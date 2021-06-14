@@ -4,66 +4,66 @@
 @{
     ViewData["Title"] = "Create";
 }
-
-<h1>New Visit</h1>
-<hr />
-<div class="row card shadow p-3">
-    <div class="col-12 card-body">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label>Select Patient</label>
-                <select asp-for="PatientId" class ="form-control" asp-items="ViewBag.PatientId">
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Visit Type</label>
-                <select asp-for="VisitType" class="form-control" asp-items="Html.GetEnumSelectList<VisitType>()">
-                </select>
-                <span asp-validation-for="VisitType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date">Visit Date</label>
-                <input type="date" asp-for="Date" class="form-control" placeholder="Date of Service" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date">Visit Start Time</label>
-                <input type="time" asp-for="Start" class="form-control" placeholder="Start Time" />
-                <span asp-validation-for="Start" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date">Visit End Time</label>
-                <input type="time" asp-for="End" class="form-control" placeholder="End Time" />
-                <span asp-validation-for="End" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <textarea asp-for="Subjective" class="form-control" rows="10" cols="50" placeholder="Subjective"></textarea>
-                <span asp-validation-for="Subjective" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <textarea asp-for="Objective" class="form-control" rows="10" cols="50" placeholder="Objective"></textarea>
-                <span asp-validation-for="Objective" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <textarea asp-for="Assessment" class="form-control" rows="10" cols="50" placeholder="Assessment"></textarea>
-                <span asp-validation-for="Assessment" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <textarea asp-for="Plan" class="form-control" rows="10" cols="50" placeholder="Plan"></textarea>
-                <span asp-validation-for="Plan" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<section class="calendar-section">
+    <h1>New Visit</h1>
+    <hr />
+    <div class="row card shadow p-3">
+        <div class="col-12 card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label>Select Patient</label>
+                    <select asp-for="PatientId" class="form-control" asp-items="ViewBag.PatientId">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Visit Type</label>
+                    <select asp-for="VisitType" class="form-control" asp-items="Html.GetEnumSelectList<VisitType>()">
+                    </select>
+                    <span asp-validation-for="VisitType" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Date">Visit Date</label>
+                    <input type="date" asp-for="Date" class="form-control" placeholder="Date of Service" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Date">Visit Start Time</label>
+                    <input type="time" asp-for="Start" class="form-control" placeholder="Start Time" />
+                    <span asp-validation-for="Start" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Date">Visit End Time</label>
+                    <input type="time" asp-for="End" class="form-control" placeholder="End Time" />
+                    <span asp-validation-for="End" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <textarea asp-for="Subjective" class="form-control" rows="10" cols="50" placeholder="Subjective"></textarea>
+                    <span asp-validation-for="Subjective" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <textarea asp-for="Objective" class="form-control" rows="10" cols="50" placeholder="Objective"></textarea>
+                    <span asp-validation-for="Objective" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <textarea asp-for="Assessment" class="form-control" rows="10" cols="50" placeholder="Assessment"></textarea>
+                    <span asp-validation-for="Assessment" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <textarea asp-for="Plan" class="form-control" rows="10" cols="50" placeholder="Plan"></textarea>
+                    <span asp-validation-for="Plan" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</section>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

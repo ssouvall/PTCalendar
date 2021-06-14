@@ -77,3 +77,7 @@ body {
 input, label {
     display: block;
 }
+
+.calendar-section {
+    margin-top: 75px;
+}

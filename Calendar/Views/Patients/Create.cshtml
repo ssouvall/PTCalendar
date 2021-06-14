@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Create";
 }
-
+<section class="calendar-section">
     <div class="card mt-5">
         <div class="card-header border-bottom-0">
             <h3 class="card-title">Add Patient</h3>
@@ -64,11 +64,12 @@
         </form>
 
     </div>
-<!-- End Row -->
+    <!-- End Row -->
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Back</a>
+    </div>
+</section>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

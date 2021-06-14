@@ -4,79 +4,80 @@
 @{
     ViewData["Title"] = "Index";
 }
+<section class="calendar-section">
+    <h1>Index</h1>
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.VisitType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Start)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.End)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Subjective)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Objective)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Assessment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Plan)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VisitType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Start)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.End)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Subjective)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Objective)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Assessment)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Plan)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    @if(User.IsInRole("PhysicalTherapist"))
-                    { 
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    }
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.VisitType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Start)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.End)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subjective)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Objective)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Assessment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Plan)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VisitType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Start)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.End)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subjective)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Objective)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Assessment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Plan)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        @if (User.IsInRole("PhysicalTherapist"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
