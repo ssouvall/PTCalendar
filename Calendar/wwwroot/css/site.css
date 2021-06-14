@@ -81,3 +81,7 @@ input, label {
 .calendar-section {
     margin-top: 75px;
 }
+
+.chart-link {
+    text-decoration: underline;
+}

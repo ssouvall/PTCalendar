@@ -4,36 +4,88 @@
     ViewData["Title"] = "Details";
 }
 <section class="calendar-section">
-            <div class="card pl-5 pr-5 pb-5 shadow">
-                <p class="card-body pl-5 pr-5 pb-5">
-                    <h1 class="mb-4 font-weight-semibold">@Model.Patient.FullName</h1>
-                    <a asp-action="Details" asp-controller="Patients" asp-route-id="@Model.Event.PatientId" class="btn btn-primary">Go to this Patient's Chart</a>
-                    <h4>@Model.Event.Date.ToString("MMM dd, yyyy")</h4>
-                    <small>Start time: @Model.Event.Start.ToString("HH:mm")</small>
-                    <small>End time: @Model.Event.End.ToString("HH:mm")</small>
-                    <br />
-                <p><strong>Visit Type:</strong></p>
-                @{
-                    string Type = Model.Event.Type;
-                }
-                @if (Type == "0")
-                {
-                    <p>
-                        Initial Evaluation
-                    </p>
-                }
-                else
-                {
-                    <p>
-                        Follow-Up
-                    </p>
-                }
-                <p><strong>Description:</strong></p>
-                <p>@Model.Event.Description</p>
 
-                <div>
-                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Event.Id">Edit</a>
-                    <a class="btn btn-outline-primary" asp-action="Index" asp-controller="Home">Back</a>
+    <div class="col-xl-6 col-md-12 col-lg-12 mx-auto">
+        <div class="card">
+            <div class="card-header  border-0">
+                <div class="card-title">Appointment Details</div>
+            </div>
+            <div class="card-body pt-2 pl-3 pr-3">
+                <div class="text-center">
+                    <div class="pro-user mt-3">
+                        <h1>@Model.Patient.FullName</h1>
+                        <a asp-action="Details" asp-controller="Patients" asp-route-id="@Model.Event.PatientId" class="chart-link"><h5><strong>Go to Patient Chart</strong></h5></a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table appt-table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="w-50"><strong>Appointment Date</strong></span>
+                                </td>
+                                <td>:</td>
+                                <td class="appt-details">
+                                    <span class="badge">@Model.Event.Date.ToString("MMM dd, yyyy")</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="w-50"><strong>Start Time:</strong></span>
+                                </td>
+                                <td>:</td>
+                                <td class="appt-details">
+                                    <span class="badge">@Model.Event.Start.ToString("hh:mm tt")</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="w-50"><strong>End Time</strong></span>
+                                </td>
+                                <td>:</td>
+                                <td class="appt-details">
+                                    <span class="badge">@Model.Event.End.ToString("hh:mm tt")</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="w-50"><strong>Appointment Type</strong></span>
+                                </td>
+                                <td>:</td>
+                                <td class="appt-details">
+                                    @{
+                                        string Type = Model.Event.Type;
+                                    }
+                                    @if (Type == "0")
+                                    {
+                                        <span class="badgey">Initial Evaluation</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge">Follow-Up</span>
+                                    }
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="w-50"><strong>Description</strong></span>
+                                </td>
+                                <td>:</td>
+                                <td class="appt-details">
+                                    <span class="badge">@Model.Event.Description</span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <a class="btn btn-success m-3" asp-action="Details" asp-controller="Patients" asp-route-id="@Model.Event.PatientId">View Patient Chart</a> 
+                        <a class="btn btn-secondary m-3" asp-action="Edit" asp-route-id="@Model.Event.Id">Edit Appointment</a>
+                        <a class="btn btn-primary m-3" asp-action="Index" asp-controller="Home">Back to Home</a>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
