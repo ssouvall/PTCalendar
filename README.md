@@ -12,16 +12,16 @@ Pro-Chart is a calendar and mock physical therapy electronic medical records app
 ##### Authentication and Roles
 -Implements authentication \
 -Implements role-based priveleges as follows:
-  1. Admin user:
+  1. Admin user: \
     -CAN: Add, edit, and remove appointments \
     -CAN: Add, edit, and remove patients \
     -CANNOT: Add, edit, or remove patient visit notes from patient charts 
-  2. Physical Therapist user:
+  2. Physical Therapist user: \
     -CAN: Add, edit, and remove appointments \
     -CAN: Add and edit patients \
     -CAN: Add, edit, and remove patient visit notes from patient charts \
     -CANNOT: Delete patients 
-  3. Clerical user:
+  3. Clerical user: \
     -CAN: Add, edit, and remove appointments \
     -CAN: Add and edit patients \
     -CANNOT: Delete patients \
