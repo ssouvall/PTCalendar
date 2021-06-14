@@ -22,6 +22,7 @@ namespace Calendar.Models.ViewModels
     {
         public string id { get; set; }
         public string title { get; set; }
+        public string type { get; set; }
         public string start { get; set; }
         public string end { get; set; }
     }

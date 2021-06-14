@@ -5,56 +5,52 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Visit</h4>
+<h1>New Visit</h1>
 <hr />
-<div class="row">
-    <div class="col-12">
+<div class="row card shadow p-3">
+    <div class="col-12 card-body">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="PatientId" class="control-label"></label>
-                <select asp-for="PatientId" class ="form-control" asp-items="ViewBag.PatientId"></select>
+                <label>Select Patient</label>
+                <select asp-for="PatientId" class ="form-control" asp-items="ViewBag.PatientId">
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="VisitType" class="control-label"></label>
-                <select asp-for="VisitType" class="form-control" asp-items="Html.GetEnumSelectList<VisitType>()"></select>
+                <label>Visit Type</label>
+                <select asp-for="VisitType" class="form-control" asp-items="Html.GetEnumSelectList<VisitType>()">
+                </select>
                 <span asp-validation-for="VisitType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input type="date" asp-for="Date" class="form-control" />
+                <label asp-for="Date">Visit Date</label>
+                <input type="date" asp-for="Date" class="form-control" placeholder="Date of Service" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Start" class="control-label"></label>
-                <input type="time" asp-for="Start" class="form-control" />
+                <label asp-for="Date">Visit Start Time</label>
+                <input type="time" asp-for="Start" class="form-control" placeholder="Start Time" />
                 <span asp-validation-for="Start" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="End" class="control-label"></label>
-                <input type="time" asp-for="End" class="form-control" />
+                <label asp-for="Date">Visit End Time</label>
+                <input type="time" asp-for="End" class="form-control" placeholder="End Time" />
                 <span asp-validation-for="End" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Subjective" class="control-label"></label>
-                <textarea asp-for="Subjective" class="form-control" rows="10" cols="50"></textarea>
+                <textarea asp-for="Subjective" class="form-control" rows="10" cols="50" placeholder="Subjective"></textarea>
                 <span asp-validation-for="Subjective" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Objective" class="control-label"></label>
-                <textarea asp-for="Objective" class="form-control" rows="10" cols="50"></textarea>
+                <textarea asp-for="Objective" class="form-control" rows="10" cols="50" placeholder="Objective"></textarea>
                 <span asp-validation-for="Objective" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Assessment" class="control-label"></label>
-                <textarea asp-for="Assessment" class="form-control" rows="10" cols="50"></textarea>
+                <textarea asp-for="Assessment" class="form-control" rows="10" cols="50" placeholder="Assessment"></textarea>
                 <span asp-validation-for="Assessment" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Plan" class="control-label"></label>
-                <textarea asp-for="Plan" class="form-control" rows="10" cols="50"></textarea>
+                <textarea asp-for="Plan" class="form-control" rows="10" cols="50" placeholder="Plan"></textarea>
                 <span asp-validation-for="Plan" class="text-danger"></span>
             </div>
             <div class="form-group">

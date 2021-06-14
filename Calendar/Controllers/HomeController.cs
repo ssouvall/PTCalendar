@@ -38,17 +38,36 @@ namespace Calendar.Controllers
 
             HomeIndexViewModel model = new();
             List<EventData> temp = new();
+            
 
             foreach (var item in events)
             {
-                EventData eventData = new()
+                Patient Patient = await _context.Patient.FirstOrDefaultAsync(p => p.Id == item.PatientId);
+
+                if (item.PatientId != 0)
                 {
-                    id = item.Id.ToString(),
-                    title = item.Name,
-                    start = $"{item.Date.ToString("yyyy-MM-dd")}T{item.Start.TimeOfDay}",
-                    end = $"{item.End.ToString("yyyy-MM-dd")}T{item.End.TimeOfDay}",
-                };
-                temp.Add(eventData);
+                    EventData eventData = new()
+                    {
+                        id = item.Id.ToString(),
+                        title = Patient.FullName,
+                        type = item.Type,
+                        start = $"{item.Date.ToString("yyyy-MM-dd")}T{item.Start.TimeOfDay}",
+                        end = $"{item.End.ToString("yyyy-MM-dd")}T{item.End.TimeOfDay}",
+                    };
+                    temp.Add(eventData);
+                }
+                else
+                {
+                    EventData eventData = new()
+                    {
+                        id = item.Id.ToString(),
+                        title = item.Name,
+                        start = $"{item.Date.ToString("yyyy-MM-dd")}T{item.Start.TimeOfDay}",
+                        end = $"{item.End.ToString("yyyy-MM-dd")}T{item.End.TimeOfDay}",
+                    };
+                    temp.Add(eventData);
+                }
+
             }
 
             model.events = temp.ToArray();

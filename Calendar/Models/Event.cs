@@ -10,7 +10,7 @@ namespace Calendar.Models
     public class Event
     {
         public int Id { get; set; }
-        public int CompanyId { get; set; }
+        public int? PatientId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

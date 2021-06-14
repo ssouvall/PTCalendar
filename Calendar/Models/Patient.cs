@@ -62,7 +62,6 @@ namespace Calendar.Models
         public string FaxNumber { get; set; }
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        public int CompanyId { get; set; }
 
         [NotMapped]
         [DataType(DataType.Upload)]
@@ -73,12 +72,8 @@ namespace Calendar.Models
         [Display(Name = "File Extension")]
         public string AvatarContentType { get; set; }
 
-        public virtual Company Company { get; set; }
         public virtual ICollection<Visit> Visits { get; set; } = new HashSet<Visit>();
-        public virtual ICollection<Appointment> Appointments { get; set; } = new HashSet<Appointment>();
-        public virtual ICollection<Insurance> Insurances { get; set; } = new HashSet<Insurance>();
         public virtual ICollection<PatientAttachment> Attachments { get; set; } = new HashSet<PatientAttachment>();
-        public virtual ICollection<Notification> Notifications { get; set; } = new HashSet<Notification>();
 
     }
 }

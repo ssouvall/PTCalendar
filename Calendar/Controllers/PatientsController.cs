@@ -27,7 +27,7 @@ namespace Calendar.Controllers
             var pageNumber = page ?? 1;
             var pageSize = 10;
 
-            var applicationDbContext = _context.Patient.Include(p => p.Company).OrderBy(p => p.LastName);
+            var applicationDbContext = _context.Patient.OrderBy(p => p.LastName);
             return View(await applicationDbContext.ToPagedListAsync(pageNumber, pageSize));
         }
 
@@ -40,7 +40,6 @@ namespace Calendar.Controllers
             }
 
             var patient = await _context.Patient
-                .Include(p => p.Company)
                 .Include(p => p.Visits)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
@@ -64,7 +63,6 @@ namespace Calendar.Controllers
         // GET: Patients/Create
         public IActionResult Create()
         {
-            ViewData["CompanyId"] = new SelectList(_context.Company, "Id", "Name");
             return View();
         }
 
@@ -81,7 +79,6 @@ namespace Calendar.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CompanyId"] = new SelectList(_context.Company, "Id", "Name", patient.CompanyId);
             return View(patient);
         }
 
@@ -98,7 +95,6 @@ namespace Calendar.Controllers
             {
                 return NotFound();
             }
-            ViewData["CompanyId"] = new SelectList(_context.Company, "Id", "Name", patient.CompanyId);
             return View(patient);
         }
 
@@ -134,7 +130,6 @@ namespace Calendar.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CompanyId"] = new SelectList(_context.Company, "Id", "Name", patient.CompanyId);
             return View(patient);
         }
 
@@ -147,7 +142,6 @@ namespace Calendar.Controllers
             }
 
             var patient = await _context.Patient
-                .Include(p => p.Company)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (patient == null)
             {

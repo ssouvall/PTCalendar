@@ -1,22 +1,6 @@
-﻿////document.addEventListener('DOMContentLoaded', function () {
-////    var calendarEl = document.getElementById('calendar');
-////    var calendar = new FullCalendar.Calendar(calendarEl, {
-////        initialView: 'dayGridWeek',
-////        headerToolbar: {
-////            left: 'prev,next today',
-////            center: 'title',
-////            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-////        },
-////        events: [
-////            {
-////                title: "Test event",
-////                start: "2021-06-11"
-////            },
-////        ],
-////    });
+﻿const type = document.getElementById('visit-type');
+const patient = document.getElementById('patient-appointment');
 
-////  calendar.render();
-
-    
-////});
-
+if (type.value == 2) {
+    patient.classList.add('d-none');
+}

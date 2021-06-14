@@ -19,16 +19,6 @@ namespace Calendar.Data
 
     public static class DataUtility
     {
-        //Get company Ids
-        private static int company1Id;
-        private static int company2Id;
-        private static int company3Id;
-        private static int company4Id;
-        private static int company5Id;
-        private static int company6Id;
-        private static int company7Id;
-
-
         public static string GetConnectionString(IConfiguration configuration)
         {
             //The default connection string will come from appSettings like usual
@@ -72,11 +62,11 @@ namespace Calendar.Data
 
             //Custom  Bug Tracker Seed Methods
             await SeedRolesAsync(userManagerSvc, roleManagerSvc);
-            await SeedDefaultCompaniesAsync(dbContextSvc);
             await SeedDefaultUsersAsync(userManagerSvc, roleManagerSvc);
             await SeedDemoUsersAsync(userManagerSvc, roleManagerSvc);
             await SeedDefaultPatientsAsync(dbContextSvc);
             await SeedDefaultVisitsAsync(dbContextSvc);
+            await SeedAppointmentsAsync(dbContextSvc);
         }
 
         public static async Task SeedRolesAsync(UserManager<CalendarUser> userManager, RoleManager<IdentityRole> roleManager)
@@ -90,44 +80,6 @@ namespace Calendar.Data
             await roleManager.CreateAsync(new IdentityRole(Roles.DemoUser.ToString()));
         }
 
-        public static async Task SeedDefaultCompaniesAsync(ApplicationDbContext context)
-        {
-            try
-            {
-                IList<Company> defaultcompanies = new List<Company>() {
-                    new Company() { Name = "Company1" },
-                    new Company() { Name = "Company2" },
-                    new Company() { Name = "Company3" },
-                    new Company() { Name = "Company4" },
-                    new Company() { Name = "Company5" },
-                    new Company() { Name = "Company6" },
-                    new Company() { Name = "Company7" }
-                };
-
-                var dbCompanies = context.Company.Select(c => c.Name).ToList();
-                await context.Company.AddRangeAsync(defaultcompanies.Where(c => !dbCompanies.Contains(c.Name)));
-                context.SaveChanges();
-
-                //Get company Ids
-                company1Id = context.Company.FirstOrDefault(p => p.Name == "Company1").Id;
-                company2Id = context.Company.FirstOrDefault(p => p.Name == "Company2").Id;
-                company3Id = context.Company.FirstOrDefault(p => p.Name == "Company3").Id;
-                company4Id = context.Company.FirstOrDefault(p => p.Name == "Company4").Id;
-                company5Id = context.Company.FirstOrDefault(p => p.Name == "Company5").Id;
-                company6Id = context.Company.FirstOrDefault(p => p.Name == "Company6").Id;
-                company7Id = context.Company.FirstOrDefault(p => p.Name == "Company7").Id;
-
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("*************  ERROR  *************");
-                Debug.WriteLine("Error Seeding Companies.");
-                Debug.WriteLine(ex.Message);
-                Debug.WriteLine("***********************************");
-                throw;
-            }
-        }
-
         public static async Task SeedDefaultPatientsAsync(ApplicationDbContext context)
         {
             try
@@ -135,7 +87,6 @@ namespace Calendar.Data
                 IList<Patient> Patients = new List<Patient>() {
                      new Patient()
                      {
-                         CompanyId = company1Id,
                          FirstName = "Dwayne",
                          LastName = "Johnson",
                          DateOfBirth = new DateTime(1968,5,10),
@@ -153,7 +104,6 @@ namespace Calendar.Data
                      },
                      new Patient()
                      {
-                         CompanyId = company1Id,
                          FirstName = "Leonardo",
                          LastName = "Davinci",
                          DateOfBirth = new DateTime(1925,1,12),
@@ -171,7 +121,6 @@ namespace Calendar.Data
                      },
                      new Patient()
                      {
-                         CompanyId = company1Id,
                          FirstName = "Tony",
                          LastName = "Stark",
                          DateOfBirth = new DateTime(1984,2,15),
@@ -189,7 +138,6 @@ namespace Calendar.Data
                      },
                      new Patient()
                      {
-                         CompanyId = company1Id,
                          FirstName = "Bruce",
                          LastName = "Wayne",
                          DateOfBirth = new DateTime(1972,8,29),
@@ -207,7 +155,6 @@ namespace Calendar.Data
                      },
                      new Patient()
                      {
-                         CompanyId = company1Id,
                          FirstName = "Selina",
                          LastName = "Kyle",
                          DateOfBirth = new DateTime(1996,12,9),
@@ -225,7 +172,6 @@ namespace Calendar.Data
                      },
                      new Patient()
                      {
-                         CompanyId = company2Id,
                          FirstName = "Audrey",
                          LastName = "Hepburn",
                          DateOfBirth = new DateTime(1968,5,10),
@@ -243,7 +189,6 @@ namespace Calendar.Data
                      },
                      new Patient()
                      {
-                         CompanyId = company2Id,
                          FirstName = "Walt",
                          LastName = "Whitman",
                          DateOfBirth = new DateTime(1948,1,12),
@@ -261,7 +206,6 @@ namespace Calendar.Data
                      },
                      new Patient()
                      {
-                         CompanyId = company2Id,
                          FirstName = "Serena",
                          LastName = "Williams",
                          DateOfBirth = new DateTime(1984,2,15),
@@ -279,7 +223,6 @@ namespace Calendar.Data
                      },
                      new Patient()
                      {
-                         CompanyId = company2Id,
                          FirstName = "James",
                          LastName = "Dean",
                          DateOfBirth = new DateTime(1972,8,29),
@@ -297,7 +240,6 @@ namespace Calendar.Data
                      },
                      new Patient()
                      {
-                         CompanyId = company2Id,
                          FirstName = "Sandra",
                          LastName = "Bullock",
                          DateOfBirth = new DateTime(1996,12,9),
@@ -315,7 +257,6 @@ namespace Calendar.Data
                      },
                      new Patient()
                      {
-                         CompanyId = company3Id,
                          FirstName = "Carl",
                          LastName = "Sagan",
                          DateOfBirth = new DateTime(1968,5,10),
@@ -333,7 +274,6 @@ namespace Calendar.Data
                      },
                      new Patient()
                      {
-                         CompanyId = company3Id,
                          FirstName = "Jennifer",
                          LastName = "Lawrence",
                          DateOfBirth = new DateTime(1925,1,12),
@@ -351,7 +291,6 @@ namespace Calendar.Data
                      },
                      new Patient()
                      {
-                         CompanyId = company3Id,
                          FirstName = "Pablo",
                          LastName = "Picasso",
                          DateOfBirth = new DateTime(1984,2,15),
@@ -369,7 +308,6 @@ namespace Calendar.Data
                      },
                      new Patient()
                      {
-                         CompanyId = company3Id,
                          FirstName = "Nicolas",
                          LastName = "Cage",
                          DateOfBirth = new DateTime(1972,8,29),
@@ -387,7 +325,6 @@ namespace Calendar.Data
                      },
                      new Patient()
                      {
-                         CompanyId = company3Id,
                          FirstName = "Steve",
                          LastName = "Carell",
                          DateOfBirth = new DateTime(1996,12,9),
@@ -429,7 +366,6 @@ namespace Calendar.Data
                 FirstName = "Stephen",
                 LastName = "Souvall",
                 EmailConfirmed = true,
-                CompanyId = company3Id
             };
             try
             {
@@ -458,7 +394,6 @@ namespace Calendar.Data
                 FirstName = "Henry",
                 LastName = "McCoy",
                 EmailConfirmed = true,
-                CompanyId = company3Id
             };
             try
             {
@@ -487,7 +422,6 @@ namespace Calendar.Data
                 FirstName = "Peter",
                 LastName = "Quill",
                 EmailConfirmed = true,
-                CompanyId = company3Id
             };
             try
             {
@@ -516,7 +450,6 @@ namespace Calendar.Data
                 FirstName = "Steve",
                 LastName = "Rogers",
                 EmailConfirmed = true,
-                CompanyId = company3Id
             };
             try
             {
@@ -545,7 +478,6 @@ namespace Calendar.Data
                 FirstName = "James",
                 LastName = "Howlett",
                 EmailConfirmed = true,
-                CompanyId = company3Id
             };
             try
             {
@@ -574,7 +506,6 @@ namespace Calendar.Data
                 FirstName = "Natasha",
                 LastName = "Romanova",
                 EmailConfirmed = true,
-                CompanyId = company3Id
             };
             try
             {
@@ -603,7 +534,6 @@ namespace Calendar.Data
                 FirstName = "Carol",
                 LastName = "Danvers",
                 EmailConfirmed = true,
-                CompanyId = company3Id
             };
             try
             {
@@ -632,7 +562,6 @@ namespace Calendar.Data
                 FirstName = "Tony",
                 LastName = "Stark",
                 EmailConfirmed = true,
-                CompanyId = company3Id
             };
             try
             {
@@ -661,7 +590,6 @@ namespace Calendar.Data
                 FirstName = "Scott",
                 LastName = "Summers",
                 EmailConfirmed = true,
-                CompanyId = company3Id
             };
             try
             {
@@ -690,7 +618,6 @@ namespace Calendar.Data
                 FirstName = "Sue",
                 LastName = "Storm",
                 EmailConfirmed = true,
-                CompanyId = company3Id
             };
             try
             {
@@ -722,7 +649,6 @@ namespace Calendar.Data
                 FirstName = "Demo",
                 LastName = "Admin",
                 EmailConfirmed = true,
-                CompanyId = company1Id
             };
             try
             {
@@ -753,7 +679,6 @@ namespace Calendar.Data
                 FirstName = "Demo",
                 LastName = "PhysicalTherapist",
                 EmailConfirmed = true,
-                CompanyId = company2Id
             };
             try
             {
@@ -783,7 +708,6 @@ namespace Calendar.Data
                 FirstName = "Demo",
                 LastName = "Clerical",
                 EmailConfirmed = true,
-                CompanyId = company2Id
             };
             try
             {
@@ -813,7 +737,6 @@ namespace Calendar.Data
                 FirstName = "Demo",
                 LastName = "PhysicalTherapist",
                 EmailConfirmed = true,
-                CompanyId = company2Id
             };
             try
             {
@@ -843,7 +766,6 @@ namespace Calendar.Data
                 FirstName = "Demo",
                 LastName = "NewUser",
                 EmailConfirmed = true,
-                CompanyId = company2Id
             };
             try
             {
@@ -1055,7 +977,7 @@ namespace Calendar.Data
                                 new Visit() {VisitType = "Follow-up", Date = new DateTime(2021,5,5), Start = new DateTime(2021,5,5,09,30,0), PatientId = nicolasCageId, End = new DateTime(2021,5,5,10,30,0), Subjective = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id sapien pharetra, dapibus arcu non, posuere urna. Quisque nec congue lectus, ullamcorper dignissim justo. Ut fermentum, metus et vehicula vestibulum, massa leo facilisis dui, vitae mattis massa mi eu est. Quisque varius pellentesque ultrices. Aliquam erat volutpat. Mauris vulputate ligula ut tortor feugiat, ac tincidunt augue vehicula. Proin nec felis sed elit efficitur bibendum id quis ligula.", Objective = "Donec convallis velit nisl, ac ultrices nibh imperdiet laoreet. Nunc vitae vestibulum est. Aliquam consequat pellentesque nisl nec egestas. Ut vel dapibus diam, at finibus velit. Integer et odio ut enim feugiat varius. Etiam ac malesuada arcu. Phasellus a rutrum felis. Quisque scelerisque nibh velit, a vehicula ante consectetur non. Vestibulum ac ex diam. Maecenas et odio sit amet massa tempor porttitor vel quis augue. Donec quis pharetra magna. Nunc sagittis, enim ut feugiat fringilla, eros turpis rhoncus nulla, ut aliquet nisi ligula at turpis. Vivamus id tincidunt lectus. Praesent sed pulvinar dolor. Pellentesque porttitor nibh molestie, pellentesque nisl sed, hendrerit dui.", Assessment = "Quisque dictum ac turpis eget venenatis. In in nisi sed sapien molestie scelerisque sit amet sit amet tellus. Morbi nec iaculis lectus. Suspendisse facilisis elementum diam, nec feugiat sapien. Proin a eleifend leo, vitae lacinia mi. Suspendisse at velit nec magna iaculis iaculis eu bibendum magna. Nulla facilisi. Nulla nec dui efficitur, consectetur metus vel, maximus lectus. Donec diam quam, condimentum et justo sit amet, auctor porta urna. Nam vitae malesuada ex. Sed quis lacinia odio, sed tristique quam. Vestibulum vulputate nisl sit amet risus egestas facilisis. Duis lectus dui, euismod venenatis pellentesque nec, cursus et velit. Quisque rhoncus, mauris ac efficitur tristique, augue risus ornare tellus, eget ultricies erat dolor sed justo.", Plan = "Etiam at aliquet dolor. Maecenas blandit, purus in rhoncus bibendum, sapien nunc fermentum turpis, at ullamcorper ante nisi sit amet diam. Duis iaculis mi ac ultricies convallis. Mauris ut ultricies turpis. Cras dapibus feugiat turpis, ac vehicula urna vehicula ut. Integer ultricies feugiat nulla, id tempus ante euismod quis. Etiam vehicula lectus tortor, et tincidunt mi posuere aliquet. Sed pharetra accumsan risus placerat maximus.",},
                                 new Visit() {VisitType = "Follow-up", Date = new DateTime(2021,5,7), Start = new DateTime(2021,5,7,09,30,0), PatientId = nicolasCageId, End = new DateTime(2021,5,7,10,30,0), Subjective = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id sapien pharetra, dapibus arcu non, posuere urna. Quisque nec congue lectus, ullamcorper dignissim justo. Ut fermentum, metus et vehicula vestibulum, massa leo facilisis dui, vitae mattis massa mi eu est. Quisque varius pellentesque ultrices. Aliquam erat volutpat. Mauris vulputate ligula ut tortor feugiat, ac tincidunt augue vehicula. Proin nec felis sed elit efficitur bibendum id quis ligula.", Objective = "Donec convallis velit nisl, ac ultrices nibh imperdiet laoreet. Nunc vitae vestibulum est. Aliquam consequat pellentesque nisl nec egestas. Ut vel dapibus diam, at finibus velit. Integer et odio ut enim feugiat varius. Etiam ac malesuada arcu. Phasellus a rutrum felis. Quisque scelerisque nibh velit, a vehicula ante consectetur non. Vestibulum ac ex diam. Maecenas et odio sit amet massa tempor porttitor vel quis augue. Donec quis pharetra magna. Nunc sagittis, enim ut feugiat fringilla, eros turpis rhoncus nulla, ut aliquet nisi ligula at turpis. Vivamus id tincidunt lectus. Praesent sed pulvinar dolor. Pellentesque porttitor nibh molestie, pellentesque nisl sed, hendrerit dui.", Assessment = "Quisque dictum ac turpis eget venenatis. In in nisi sed sapien molestie scelerisque sit amet sit amet tellus. Morbi nec iaculis lectus. Suspendisse facilisis elementum diam, nec feugiat sapien. Proin a eleifend leo, vitae lacinia mi. Suspendisse at velit nec magna iaculis iaculis eu bibendum magna. Nulla facilisi. Nulla nec dui efficitur, consectetur metus vel, maximus lectus. Donec diam quam, condimentum et justo sit amet, auctor porta urna. Nam vitae malesuada ex. Sed quis lacinia odio, sed tristique quam. Vestibulum vulputate nisl sit amet risus egestas facilisis. Duis lectus dui, euismod venenatis pellentesque nec, cursus et velit. Quisque rhoncus, mauris ac efficitur tristique, augue risus ornare tellus, eget ultricies erat dolor sed justo.", Plan = "Etiam at aliquet dolor. Maecenas blandit, purus in rhoncus bibendum, sapien nunc fermentum turpis, at ullamcorper ante nisi sit amet diam. Duis iaculis mi ac ultricies convallis. Mauris ut ultricies turpis. Cras dapibus feugiat turpis, ac vehicula urna vehicula ut. Integer ultricies feugiat nulla, id tempus ante euismod quis. Etiam vehicula lectus tortor, et tincidunt mi posuere aliquet. Sed pharetra accumsan risus placerat maximus.",},
 
-
+                                //Steve Carell
                                 new Visit() {VisitType = "Initial Evaluation", Date = new DateTime(2021,4,12), Start = new DateTime(2021,4,12,09,30,0), PatientId = steveCarellId, End = new DateTime(2021,4,12,10,30,0), Subjective = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id sapien pharetra, dapibus arcu non, posuere urna. Quisque nec congue lectus, ullamcorper dignissim justo. Ut fermentum, metus et vehicula vestibulum, massa leo facilisis dui, vitae mattis massa mi eu est. Quisque varius pellentesque ultrices. Aliquam erat volutpat. Mauris vulputate ligula ut tortor feugiat, ac tincidunt augue vehicula. Proin nec felis sed elit efficitur bibendum id quis ligula.", Objective = "Donec convallis velit nisl, ac ultrices nibh imperdiet laoreet. Nunc vitae vestibulum est. Aliquam consequat pellentesque nisl nec egestas. Ut vel dapibus diam, at finibus velit. Integer et odio ut enim feugiat varius. Etiam ac malesuada arcu. Phasellus a rutrum felis. Quisque scelerisque nibh velit, a vehicula ante consectetur non. Vestibulum ac ex diam. Maecenas et odio sit amet massa tempor porttitor vel quis augue. Donec quis pharetra magna. Nunc sagittis, enim ut feugiat fringilla, eros turpis rhoncus nulla, ut aliquet nisi ligula at turpis. Vivamus id tincidunt lectus. Praesent sed pulvinar dolor. Pellentesque porttitor nibh molestie, pellentesque nisl sed, hendrerit dui.", Assessment = "Quisque dictum ac turpis eget venenatis. In in nisi sed sapien molestie scelerisque sit amet sit amet tellus. Morbi nec iaculis lectus. Suspendisse facilisis elementum diam, nec feugiat sapien. Proin a eleifend leo, vitae lacinia mi. Suspendisse at velit nec magna iaculis iaculis eu bibendum magna. Nulla facilisi. Nulla nec dui efficitur, consectetur metus vel, maximus lectus. Donec diam quam, condimentum et justo sit amet, auctor porta urna. Nam vitae malesuada ex. Sed quis lacinia odio, sed tristique quam. Vestibulum vulputate nisl sit amet risus egestas facilisis. Duis lectus dui, euismod venenatis pellentesque nec, cursus et velit. Quisque rhoncus, mauris ac efficitur tristique, augue risus ornare tellus, eget ultricies erat dolor sed justo.", Plan = "Etiam at aliquet dolor. Maecenas blandit, purus in rhoncus bibendum, sapien nunc fermentum turpis, at ullamcorper ante nisi sit amet diam. Duis iaculis mi ac ultricies convallis. Mauris ut ultricies turpis. Cras dapibus feugiat turpis, ac vehicula urna vehicula ut. Integer ultricies feugiat nulla, id tempus ante euismod quis. Etiam vehicula lectus tortor, et tincidunt mi posuere aliquet. Sed pharetra accumsan risus placerat maximus.",},
                                 new Visit() {VisitType = "Follow-up", Date = new DateTime(2021,4,12), Start = new DateTime(2021,4,15,09,30,0), PatientId = steveCarellId, End = new DateTime(2021,4,12,10,30,0), Subjective = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id sapien pharetra, dapibus arcu non, posuere urna. Quisque nec congue lectus, ullamcorper dignissim justo. Ut fermentum, metus et vehicula vestibulum, massa leo facilisis dui, vitae mattis massa mi eu est. Quisque varius pellentesque ultrices. Aliquam erat volutpat. Mauris vulputate ligula ut tortor feugiat, ac tincidunt augue vehicula. Proin nec felis sed elit efficitur bibendum id quis ligula.", Objective = "Donec convallis velit nisl, ac ultrices nibh imperdiet laoreet. Nunc vitae vestibulum est. Aliquam consequat pellentesque nisl nec egestas. Ut vel dapibus diam, at finibus velit. Integer et odio ut enim feugiat varius. Etiam ac malesuada arcu. Phasellus a rutrum felis. Quisque scelerisque nibh velit, a vehicula ante consectetur non. Vestibulum ac ex diam. Maecenas et odio sit amet massa tempor porttitor vel quis augue. Donec quis pharetra magna. Nunc sagittis, enim ut feugiat fringilla, eros turpis rhoncus nulla, ut aliquet nisi ligula at turpis. Vivamus id tincidunt lectus. Praesent sed pulvinar dolor. Pellentesque porttitor nibh molestie, pellentesque nisl sed, hendrerit dui.", Assessment = "Quisque dictum ac turpis eget venenatis. In in nisi sed sapien molestie scelerisque sit amet sit amet tellus. Morbi nec iaculis lectus. Suspendisse facilisis elementum diam, nec feugiat sapien. Proin a eleifend leo, vitae lacinia mi. Suspendisse at velit nec magna iaculis iaculis eu bibendum magna. Nulla facilisi. Nulla nec dui efficitur, consectetur metus vel, maximus lectus. Donec diam quam, condimentum et justo sit amet, auctor porta urna. Nam vitae malesuada ex. Sed quis lacinia odio, sed tristique quam. Vestibulum vulputate nisl sit amet risus egestas facilisis. Duis lectus dui, euismod venenatis pellentesque nec, cursus et velit. Quisque rhoncus, mauris ac efficitur tristique, augue risus ornare tellus, eget ultricies erat dolor sed justo.", Plan = "Etiam at aliquet dolor. Maecenas blandit, purus in rhoncus bibendum, sapien nunc fermentum turpis, at ullamcorper ante nisi sit amet diam. Duis iaculis mi ac ultricies convallis. Mauris ut ultricies turpis. Cras dapibus feugiat turpis, ac vehicula urna vehicula ut. Integer ultricies feugiat nulla, id tempus ante euismod quis. Etiam vehicula lectus tortor, et tincidunt mi posuere aliquet. Sed pharetra accumsan risus placerat maximus.",},
                                 new Visit() {VisitType = "Follow-up", Date = new DateTime(2021,4,18), Start = new DateTime(2021,4,18,09,30,0), PatientId = steveCarellId, End = new DateTime(2021,4,18,10,30,0), Subjective = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id sapien pharetra, dapibus arcu non, posuere urna. Quisque nec congue lectus, ullamcorper dignissim justo. Ut fermentum, metus et vehicula vestibulum, massa leo facilisis dui, vitae mattis massa mi eu est. Quisque varius pellentesque ultrices. Aliquam erat volutpat. Mauris vulputate ligula ut tortor feugiat, ac tincidunt augue vehicula. Proin nec felis sed elit efficitur bibendum id quis ligula.", Objective = "Donec convallis velit nisl, ac ultrices nibh imperdiet laoreet. Nunc vitae vestibulum est. Aliquam consequat pellentesque nisl nec egestas. Ut vel dapibus diam, at finibus velit. Integer et odio ut enim feugiat varius. Etiam ac malesuada arcu. Phasellus a rutrum felis. Quisque scelerisque nibh velit, a vehicula ante consectetur non. Vestibulum ac ex diam. Maecenas et odio sit amet massa tempor porttitor vel quis augue. Donec quis pharetra magna. Nunc sagittis, enim ut feugiat fringilla, eros turpis rhoncus nulla, ut aliquet nisi ligula at turpis. Vivamus id tincidunt lectus. Praesent sed pulvinar dolor. Pellentesque porttitor nibh molestie, pellentesque nisl sed, hendrerit dui.", Assessment = "Quisque dictum ac turpis eget venenatis. In in nisi sed sapien molestie scelerisque sit amet sit amet tellus. Morbi nec iaculis lectus. Suspendisse facilisis elementum diam, nec feugiat sapien. Proin a eleifend leo, vitae lacinia mi. Suspendisse at velit nec magna iaculis iaculis eu bibendum magna. Nulla facilisi. Nulla nec dui efficitur, consectetur metus vel, maximus lectus. Donec diam quam, condimentum et justo sit amet, auctor porta urna. Nam vitae malesuada ex. Sed quis lacinia odio, sed tristique quam. Vestibulum vulputate nisl sit amet risus egestas facilisis. Duis lectus dui, euismod venenatis pellentesque nec, cursus et velit. Quisque rhoncus, mauris ac efficitur tristique, augue risus ornare tellus, eget ultricies erat dolor sed justo.", Plan = "Etiam at aliquet dolor. Maecenas blandit, purus in rhoncus bibendum, sapien nunc fermentum turpis, at ullamcorper ante nisi sit amet diam. Duis iaculis mi ac ultricies convallis. Mauris ut ultricies turpis. Cras dapibus feugiat turpis, ac vehicula urna vehicula ut. Integer ultricies feugiat nulla, id tempus ante euismod quis. Etiam vehicula lectus tortor, et tincidunt mi posuere aliquet. Sed pharetra accumsan risus placerat maximus.",},
@@ -1084,5 +1006,109 @@ namespace Calendar.Data
             }
         }
 
+        public static async Task SeedAppointmentsAsync(ApplicationDbContext context)
+        {
+            //Get Patient Ids
+            int dwayneJohnsonId = context.Patient.FirstOrDefault(p => p.LastName == "Johnson").Id;
+            int leonardoDavinciId = context.Patient.FirstOrDefault(p => p.LastName == "Davinci").Id;
+            int tonyStarkId = context.Patient.FirstOrDefault(p => p.LastName == "Stark").Id;
+            int bruceWayneId = context.Patient.FirstOrDefault(p => p.LastName == "Wayne").Id;
+            int selinaKyleId = context.Patient.FirstOrDefault(p => p.LastName == "Kyle").Id;
+            int audreyHepburnId = context.Patient.FirstOrDefault(p => p.LastName == "Hepburn").Id;
+            int waltWhitmanId = context.Patient.FirstOrDefault(p => p.LastName == "Whitman").Id;
+            int serenaWilliamsId = context.Patient.FirstOrDefault(p => p.LastName == "Williams").Id;
+            int jamesDeanId = context.Patient.FirstOrDefault(p => p.LastName == "Dean").Id;
+            int sandraBullockId = context.Patient.FirstOrDefault(p => p.LastName == "Bullock").Id;
+            int carlSaganId = context.Patient.FirstOrDefault(p => p.LastName == "Sagan").Id;
+            int jenniferLawrenceId = context.Patient.FirstOrDefault(p => p.LastName == "Lawrence").Id;
+            int pabloPicassoId = context.Patient.FirstOrDefault(p => p.LastName == "Picasso").Id;
+            int nicolasCageId = context.Patient.FirstOrDefault(p => p.LastName == "Cage").Id;
+            int steveCarellId = context.Patient.FirstOrDefault(p => p.LastName == "Carell").Id;
+
+            try
+            {
+                IList<Event> Events = new List<Event>() {
+
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 14), Start = new DateTime(2021, 6, 14, 08, 30, 0), PatientId = dwayneJohnsonId, End = new DateTime(2021, 6, 14, 9, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 14), Start = new DateTime(2021, 6, 14, 09, 30, 0), PatientId = leonardoDavinciId, End = new DateTime(2021, 6, 14, 10, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 14), Start = new DateTime(2021, 6, 14, 10, 30, 0), PatientId = tonyStarkId, End = new DateTime(2021, 6, 14, 11, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 14), Start = new DateTime(2021, 6, 14, 11, 30, 0), PatientId = bruceWayneId, End = new DateTime(2021, 6, 14, 12, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 14), Start = new DateTime(2021, 6, 14, 13, 00, 0), PatientId = selinaKyleId, End = new DateTime(2021, 6, 14, 14, 00, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 14), Start = new DateTime(2021, 6, 14, 14, 30, 0), PatientId = serenaWilliamsId, End = new DateTime(2021, 6, 14, 15, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 14), Start = new DateTime(2021, 6, 14, 15, 30, 0), PatientId = leonardoDavinciId, End = new DateTime(2021, 6, 14, 16, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 14), Start = new DateTime(2021, 6, 14, 16, 30, 0), PatientId = tonyStarkId, End = new DateTime(2021, 6, 14, 17, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 15), Start = new DateTime(2021, 6, 15, 09, 30, 0), PatientId = dwayneJohnsonId, End = new DateTime(2021, 6, 15, 10, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 15), Start = new DateTime(2021, 6, 15, 11, 30, 0), PatientId = bruceWayneId, End = new DateTime(2021, 6, 15, 12, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 15), Start = new DateTime(2021, 6, 15, 13, 00, 0), PatientId = tonyStarkId, End = new DateTime(2021, 6, 15, 14, 00, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 15), Start = new DateTime(2021, 6, 15, 14, 00, 0), PatientId = nicolasCageId, End = new DateTime(2021, 6, 15, 15, 00, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 15), Start = new DateTime(2021, 6, 15, 16, 00, 0), PatientId = serenaWilliamsId, End = new DateTime(2021, 6, 15, 17, 00, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 16), Start = new DateTime(2021, 6, 16, 08, 30, 0), PatientId = bruceWayneId, End = new DateTime(2021, 6, 16, 09, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 16), Start = new DateTime(2021, 6, 16, 09, 30, 0), PatientId = dwayneJohnsonId, End = new DateTime(2021, 6, 16, 10, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 16), Start = new DateTime(2021, 6, 16, 10, 30, 0), PatientId = selinaKyleId, End = new DateTime(2021, 6, 16, 11, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 16), Start = new DateTime(2021, 6, 16, 11, 30, 0), PatientId = leonardoDavinciId, End = new DateTime(2021, 6, 16, 12, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 16), Start = new DateTime(2021, 6, 16, 12, 30, 0), PatientId = dwayneJohnsonId, End = new DateTime(2021, 6, 16, 13, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 17), Start = new DateTime(2021, 6, 17, 08, 30, 0), PatientId = tonyStarkId, End = new DateTime(2021, 6, 17, 09, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 17), Start = new DateTime(2021, 6, 17, 09, 30, 0), PatientId = serenaWilliamsId, End = new DateTime(2021, 6, 17, 10, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 17), Start = new DateTime(2021, 6, 17, 10, 30, 0), PatientId = selinaKyleId, End = new DateTime(2021, 6, 17, 11, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 17), Start = new DateTime(2021, 6, 17, 11, 30, 0), PatientId = tonyStarkId, End = new DateTime(2021, 6, 17, 12, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 17), Start = new DateTime(2021, 6, 17, 12, 30, 0), PatientId = nicolasCageId, End = new DateTime(2021, 6, 17, 13, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 16), Start = new DateTime(2021, 6, 16, 14, 30, 0), PatientId = bruceWayneId, End = new DateTime(2021, 6, 16, 15, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 17), Start = new DateTime(2021, 6, 17, 14, 00, 0), PatientId = serenaWilliamsId, End = new DateTime(2021, 6, 17, 15, 00, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 17), Start = new DateTime(2021, 6, 17, 15, 30, 0), PatientId = dwayneJohnsonId, End = new DateTime(2021, 6, 17, 16, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 17), Start = new DateTime(2021, 6, 17, 17, 30, 0), PatientId = dwayneJohnsonId, End = new DateTime(2021, 6, 17, 18, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 18), Start = new DateTime(2021, 6, 18, 10, 00, 0), PatientId = selinaKyleId, End = new DateTime(2021, 6, 18, 11, 00, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 18), Start = new DateTime(2021, 6, 18, 12, 00, 0), PatientId = bruceWayneId, End = new DateTime(2021, 6, 18, 13, 00, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 18), Start = new DateTime(2021, 6, 18, 13, 30, 0), PatientId = nicolasCageId, End = new DateTime(2021, 6, 18, 14, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 18), Start = new DateTime(2021, 6, 18, 14, 30, 0), PatientId = tonyStarkId, End = new DateTime(2021, 6, 18, 15, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 18), Start = new DateTime(2021, 6, 18, 15, 30, 0), PatientId = dwayneJohnsonId, End = new DateTime(2021, 6, 18, 16, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 18), Start = new DateTime(2021, 6, 18, 16, 30, 0), PatientId = tonyStarkId, End = new DateTime(2021, 6, 18, 17, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 18), Start = new DateTime(2021, 6, 18, 17, 30, 0), PatientId = dwayneJohnsonId, End = new DateTime(2021, 6, 18, 18, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 21), Start = new DateTime(2021, 6, 21, 08, 00, 0), PatientId = leonardoDavinciId, End = new DateTime(2021, 6, 21, 09, 00, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 21), Start = new DateTime(2021, 6, 21, 10, 00, 0), PatientId = tonyStarkId, End = new DateTime(2021, 6, 21, 11, 00, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 21), Start = new DateTime(2021, 6, 21, 11, 30, 0), PatientId = bruceWayneId, End = new DateTime(2021, 6, 21, 12, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 21), Start = new DateTime(2021, 6, 21, 12, 30, 0), PatientId = selinaKyleId, End = new DateTime(2021, 6, 21, 13, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 21), Start = new DateTime(2021, 6, 21, 14, 00, 0), PatientId = serenaWilliamsId, End = new DateTime(2021, 6, 21, 15, 00, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 21), Start = new DateTime(2021, 6, 21, 15, 00, 0), PatientId = leonardoDavinciId, End = new DateTime(2021, 6, 21, 16, 00, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 22), Start = new DateTime(2021, 6, 22, 08, 30, 0), PatientId = tonyStarkId, End = new DateTime(2021, 6, 22, 09, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 22), Start = new DateTime(2021, 6, 22, 09, 30, 0), PatientId = dwayneJohnsonId, End = new DateTime(2021, 6, 22, 10, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 22), Start = new DateTime(2021, 6, 22, 10, 30, 0), PatientId = bruceWayneId, End = new DateTime(2021, 6, 22, 11, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 22), Start = new DateTime(2021, 6, 22, 11, 30, 0), PatientId = tonyStarkId, End = new DateTime(2021, 6, 22, 12, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 22), Start = new DateTime(2021, 6, 22, 12, 30, 0), PatientId = nicolasCageId, End = new DateTime(2021, 6, 22, 13, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 23), Start = new DateTime(2021, 6, 23, 14, 30, 0), PatientId = serenaWilliamsId, End = new DateTime(2021, 6, 23, 15, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 23), Start = new DateTime(2021, 6, 23, 17, 30, 0), PatientId = bruceWayneId, End = new DateTime(2021, 6, 23, 18, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 24), Start = new DateTime(2021, 6, 24, 08, 30, 0), PatientId = dwayneJohnsonId, End = new DateTime(2021, 6, 24, 09, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 24), Start = new DateTime(2021, 6, 24, 09, 30, 0), PatientId = selinaKyleId, End = new DateTime(2021, 6, 24, 10, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 24), Start = new DateTime(2021, 6, 24, 10, 30, 0), PatientId = leonardoDavinciId, End = new DateTime(2021, 6, 24, 11, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 24), Start = new DateTime(2021, 6, 24, 11, 30, 0), PatientId = dwayneJohnsonId, End = new DateTime(2021, 6, 24, 12, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 24), Start = new DateTime(2021, 6, 24, 12, 30, 0), PatientId = tonyStarkId, End = new DateTime(2021, 6, 24, 13, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 24), Start = new DateTime(2021, 6, 24, 13, 30, 0), PatientId = serenaWilliamsId, End = new DateTime(2021, 6, 24, 14, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 24), Start = new DateTime(2021, 6, 24, 14, 30, 0), PatientId = selinaKyleId, End = new DateTime(2021, 6, 24, 15, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 24), Start = new DateTime(2021, 6, 24, 15, 30, 0), PatientId = tonyStarkId, End = new DateTime(2021, 6, 24, 16, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 24), Start = new DateTime(2021, 6, 24, 16, 30, 0), PatientId = nicolasCageId, End = new DateTime(2021, 6, 24, 17, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 24), Start = new DateTime(2021, 6, 24, 17, 30, 0), PatientId = bruceWayneId, End = new DateTime(2021, 6, 24, 18, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 24), Start = new DateTime(2021, 6, 24, 18, 30, 0), PatientId = serenaWilliamsId, End = new DateTime(2021, 6, 24, 19, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 25), Start = new DateTime(2021, 6, 25, 09, 00, 0), PatientId = dwayneJohnsonId, End = new DateTime(2021, 6, 25, 10, 00, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 25), Start = new DateTime(2021, 6, 25, 10, 30, 0), PatientId = dwayneJohnsonId, End = new DateTime(2021, 6, 25, 11, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 25), Start = new DateTime(2021, 6, 25, 11, 30, 0), PatientId = selinaKyleId, End = new DateTime(2021, 6, 25, 12, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 25), Start = new DateTime(2021, 6, 25, 15, 30, 0), PatientId = bruceWayneId, End = new DateTime(2021, 6, 25, 16, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 25), Start = new DateTime(2021, 6, 25, 16, 30, 0), PatientId = nicolasCageId, End = new DateTime(2021, 6, 25, 17, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 25), Start = new DateTime(2021, 6, 25, 17, 30, 0), PatientId = tonyStarkId, End = new DateTime(2021, 6, 25, 18, 30, 0), },
+                new Event() { Type = "Initial Evaluation", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 25), Start = new DateTime(2021, 6, 25, 18, 30, 0), PatientId = dwayneJohnsonId, End = new DateTime(2021, 6, 25, 19, 30, 0), },
+                new Event() { Type = "Follow-Up", Name = "Post-Op TKA", Description = "Will bring referral with him", Date = new DateTime(2021, 6, 25), Start = new DateTime(2021, 6, 25, 19, 30, 0), PatientId = tonyStarkId, End = new DateTime(2021, 6, 25, 10, 30, 0), },
+                };
+
+                var dbEvents = context.Event.Select(c => c.Name).ToList();
+                await context.Event.AddRangeAsync(Events.Where(c => !dbEvents.Contains(c.Name)));
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("*************  ERROR  *************");
+                Debug.WriteLine("Error Seeding Visit.");
+                Debug.WriteLine(ex.Message);
+                Debug.WriteLine("***********************************");
+                throw;
+            }
+        }
     }
 }

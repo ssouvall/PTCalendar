@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Calendar.Data;
 using Calendar.Models;
+using Calendar.Models.ViewModels;
 
 namespace Calendar.Controllers
 {
@@ -32,15 +33,25 @@ namespace Calendar.Controllers
             {
                 return NotFound();
             }
+            
 
             var visit = await _context.Visit
                 .FirstOrDefaultAsync(m => m.Id == id);
+            Patient patient = await _context.Patient.FirstOrDefaultAsync(p => p.Id == visit.PatientId);
             if (visit == null)
             {
                 return NotFound();
             }
 
-            return View(visit);
+
+            VisitDetailsViewModel model = new()
+            {
+                Visit = visit,
+                Patient = patient
+
+            };
+
+            return View(model);
         }
 
         // GET: Visits/Create
@@ -77,10 +88,12 @@ namespace Calendar.Controllers
             }
 
             var visit = await _context.Visit.FindAsync(id);
+            int patientId = visit.PatientId;
             if (visit == null)
             {
                 return NotFound();
             }
+            ViewData["PatientId"] = new SelectList(_context.Patient, "Id", "FullName", patientId);
             return View(visit);
         }
 
@@ -143,9 +156,10 @@ namespace Calendar.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var visit = await _context.Visit.FindAsync(id);
+            int patientId = (await _context.Patient.FirstOrDefaultAsync(p => p.Id == visit.PatientId)).Id;
             _context.Visit.Remove(visit);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Patients", new { id = patientId });
         }
 
         private bool VisitExists(int id)

@@ -25,6 +25,8 @@ namespace Calendar.Controllers
             return View(await _context.Event.ToListAsync());
         }
 
+        public int PatientId { get; set; }
+
         // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -46,6 +48,7 @@ namespace Calendar.Controllers
         // GET: Events/Create
         public IActionResult Create()
         {
+            ViewData["PatientId"] = new SelectList(_context.Patient, "Id", "FullName");
             return View();
         }
 
@@ -54,13 +57,15 @@ namespace Calendar.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CompanyId,CalendarId,Name,Type,Description,Date,Start,End")] Event @event)
+        public async Task<IActionResult> Create([Bind("Id,CompanyId,PatientId,CalendarId,Name,Type,Description,Date,Start,End")] Event @event)
         {
             if (ModelState.IsValid)
             {
+                
                 _context.Add(@event);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
+
             }
             return View(@event);
         }

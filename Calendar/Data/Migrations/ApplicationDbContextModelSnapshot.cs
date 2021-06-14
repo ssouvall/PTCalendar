@@ -19,47 +19,6 @@ namespace Calendar.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.Entity("Calendar.Models.Appointment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset>("Date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset>("End")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("PatientId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset>("Start")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("Appointment");
-                });
-
             modelBuilder.Entity("Calendar.Models.AppointmentComment", b =>
                 {
                     b.Property<int>("Id")
@@ -74,9 +33,6 @@ namespace Calendar.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("timestamp with time zone");
 
@@ -87,10 +43,6 @@ namespace Calendar.Data.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppointmentId");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasIndex("EventId");
 
@@ -107,9 +59,6 @@ namespace Calendar.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("AppointmentId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("AvatarContentType")
                         .HasColumnType("text");
 
@@ -118,9 +67,6 @@ namespace Calendar.Data.Migrations
 
                     b.Property<string>("AvatarFileName")
                         .HasColumnType("text");
-
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -185,10 +131,6 @@ namespace Calendar.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppointmentId");
-
-                    b.HasIndex("CompanyId");
-
                     b.HasIndex("EventId");
 
                     b.HasIndex("NormalizedEmail")
@@ -201,41 +143,12 @@ namespace Calendar.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Calendar.Models.Company", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("FileContentType")
-                        .HasColumnType("text");
-
-                    b.Property<byte[]>("FileData")
-                        .HasColumnType("bytea");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Company");
-                });
-
             modelBuilder.Entity("Calendar.Models.Event", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("Date")
                         .HasColumnType("timestamp with time zone");
@@ -251,6 +164,9 @@ namespace Calendar.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("PatientId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTimeOffset>("Start")
                         .HasColumnType("timestamp with time zone");
 
@@ -261,136 +177,6 @@ namespace Calendar.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Event");
-                });
-
-            modelBuilder.Entity("Calendar.Models.Insurance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("Coinsurance")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Copay")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("GroupNumber")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsPrimary")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("MaxVisit")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<int>("PatientId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("PolicyNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("Insurance");
-                });
-
-            modelBuilder.Entity("Calendar.Models.Invite", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("AppointmentId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("CompanyToken")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("InviteDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("InviteeEmail")
-                        .HasColumnType("text");
-
-                    b.Property<string>("InviteeFirstName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("InviteeId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("InviteeLastName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("InvitorId")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsValid")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("InviteeId");
-
-                    b.HasIndex("InvitorId");
-
-                    b.ToTable("Invite");
-                });
-
-            modelBuilder.Entity("Calendar.Models.Notification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("text");
-
-                    b.Property<int>("PatientId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("RecipientId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("SenderId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("Viewed")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PatientId");
-
-                    b.HasIndex("RecipientId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("Notification");
                 });
 
             modelBuilder.Entity("Calendar.Models.Patient", b =>
@@ -420,9 +206,6 @@ namespace Calendar.Data.Migrations
 
                     b.Property<string>("City")
                         .HasColumnType("text");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("DateOfBirth")
                         .HasColumnType("timestamp with time zone");
@@ -465,8 +248,6 @@ namespace Calendar.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CalendarUserId");
-
-                    b.HasIndex("CompanyId");
 
                     b.ToTable("Patient");
                 });
@@ -687,29 +468,8 @@ namespace Calendar.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Calendar.Models.Appointment", b =>
-                {
-                    b.HasOne("Calendar.Models.Patient", "Patient")
-                        .WithMany("Appointments")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Patient");
-                });
-
             modelBuilder.Entity("Calendar.Models.AppointmentComment", b =>
                 {
-                    b.HasOne("Calendar.Models.Appointment", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("AppointmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Calendar.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId");
-
                     b.HasOne("Calendar.Models.Event", null)
                         .WithMany("Comments")
                         .HasForeignKey("EventId");
@@ -718,87 +478,14 @@ namespace Calendar.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("Company");
-
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Calendar.Models.CalendarUser", b =>
                 {
-                    b.HasOne("Calendar.Models.Appointment", null)
-                        .WithMany("Members")
-                        .HasForeignKey("AppointmentId");
-
-                    b.HasOne("Calendar.Models.Company", "Company")
-                        .WithMany("Members")
-                        .HasForeignKey("CompanyId");
-
                     b.HasOne("Calendar.Models.Event", null)
                         .WithMany("Members")
                         .HasForeignKey("EventId");
-
-                    b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("Calendar.Models.Insurance", b =>
-                {
-                    b.HasOne("Calendar.Models.Patient", "Patient")
-                        .WithMany("Insurances")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("Calendar.Models.Invite", b =>
-                {
-                    b.HasOne("Calendar.Models.Company", "Company")
-                        .WithMany("Invites")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Calendar.Models.CalendarUser", "Invitee")
-                        .WithMany()
-                        .HasForeignKey("InviteeId");
-
-                    b.HasOne("Calendar.Models.CalendarUser", "Invitor")
-                        .WithMany()
-                        .HasForeignKey("InvitorId");
-
-                    b.Navigation("Company");
-
-                    b.Navigation("Invitee");
-
-                    b.Navigation("Invitor");
-                });
-
-            modelBuilder.Entity("Calendar.Models.Notification", b =>
-                {
-                    b.HasOne("Calendar.Models.Patient", "Patient")
-                        .WithMany("Notifications")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Calendar.Models.CalendarUser", "Recipient")
-                        .WithMany()
-                        .HasForeignKey("RecipientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Calendar.Models.CalendarUser", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Patient");
-
-                    b.Navigation("Recipient");
-
-                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("Calendar.Models.Patient", b =>
@@ -806,14 +493,6 @@ namespace Calendar.Data.Migrations
                     b.HasOne("Calendar.Models.CalendarUser", null)
                         .WithMany("Patient")
                         .HasForeignKey("CalendarUserId");
-
-                    b.HasOne("Calendar.Models.Company", "Company")
-                        .WithMany("Patients")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Calendar.Models.PatientAttachment", b =>
@@ -891,25 +570,9 @@ namespace Calendar.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Calendar.Models.Appointment", b =>
-                {
-                    b.Navigation("Comments");
-
-                    b.Navigation("Members");
-                });
-
             modelBuilder.Entity("Calendar.Models.CalendarUser", b =>
                 {
                     b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("Calendar.Models.Company", b =>
-                {
-                    b.Navigation("Invites");
-
-                    b.Navigation("Members");
-
-                    b.Navigation("Patients");
                 });
 
             modelBuilder.Entity("Calendar.Models.Event", b =>
@@ -921,13 +584,7 @@ namespace Calendar.Data.Migrations
 
             modelBuilder.Entity("Calendar.Models.Patient", b =>
                 {
-                    b.Navigation("Appointments");
-
                     b.Navigation("Attachments");
-
-                    b.Navigation("Insurances");
-
-                    b.Navigation("Notifications");
 
                     b.Navigation("Visits");
                 });
