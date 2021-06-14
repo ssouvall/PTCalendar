@@ -28,16 +28,16 @@
                     <div class="input-group">
                         <input asp-for="Name" class="form-control" placeholder="Appointment Name" />
                         <span asp-validation-for="Name" class="text-danger"></span>
-                        <input type="text" asp-for="Date" class="form-control textbox-n" placeholder="Appointment Date" onfocus="(this.type='date')" />
+                        <input type="date" asp-for="Date" class="form-control" />
                         <span asp-validation-for="Date" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group mb-3">
                     <div class="input-group">
 
-                        <input asp-for="Start" type="text" class="form-control textbox-n" placeholder="Appointment Start Time" onfocus="(this.type='time')" />
+                        <input type="time" asp-for="Start" class="form-control" />
                         <span asp-validation-for="Start" class="text-danger"></span>
-                        <input asp-for="End" type="text" class="form-control textbox-n" placeholder="Appointment End Time" onfocus="(this.type='time')" />
+                        <input type="time" asp-for="End" class="form-control" />
                         <span asp-validation-for="End" class="text-danger"></span>
                     </div>
                 </div>

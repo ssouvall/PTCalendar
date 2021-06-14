@@ -163,7 +163,7 @@ namespace Calendar.Controllers
             var @event = await _context.Event.FindAsync(id);
             _context.Event.Remove(@event);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private bool EventExists(int id)

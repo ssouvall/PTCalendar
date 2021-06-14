@@ -78,7 +78,7 @@ namespace Calendar.Controllers
             {
                 _context.Add(visit);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Patients", new { id = visit.PatientId });
             }
             return View(visit);
         }
@@ -132,7 +132,7 @@ namespace Calendar.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Patients", new { id = visit.PatientId });
             }
             return View(visit);
         }

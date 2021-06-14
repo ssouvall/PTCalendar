@@ -5,7 +5,7 @@
 }
 <section class="calendar-section">
 
-    <div class="col-xl-6 col-md-12 col-lg-12 mx-auto">
+    <div class="col-xl-8 col-md-12 col-lg-12 mx-auto">
         <div class="card">
             <div class="card-header  border-0">
                 <div class="card-title">Appointment Details</div>
@@ -80,9 +80,10 @@
                         </tbody>
                     </table>
                     <div class="text-center">
-                        <a class="btn btn-success m-3" asp-action="Details" asp-controller="Patients" asp-route-id="@Model.Event.PatientId">View Patient Chart</a> 
+                        <a class="btn btn-success m-3" asp-action="Details" asp-controller="Patients" asp-route-id="@Model.Event.PatientId">View Patient Chart</a>
                         <a class="btn btn-secondary m-3" asp-action="Edit" asp-route-id="@Model.Event.Id">Edit Appointment</a>
-                        <a class="btn btn-primary m-3" asp-action="Index" asp-controller="Home">Back to Home</a>
+                        <a class="btn btn-danger m-3" asp-action="Delete" asp-route-id="@Model.Event.Id">Delete Appointment</a>
+                        <a class="btn btn-primary m-3" asp-action="Index" asp-controller="Home">Home</a>
                     </div>
                 </div>
             </div>

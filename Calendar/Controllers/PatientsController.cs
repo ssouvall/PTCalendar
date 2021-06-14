@@ -79,7 +79,7 @@ namespace Calendar.Controllers
             {
                 _context.Add(patient);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Patients", new { id = patient.Id });
             }
             return View(patient);
         }
@@ -130,7 +130,7 @@ namespace Calendar.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Patients", new { id = patient.Id });
             }
             return View(patient);
         }
@@ -163,7 +163,7 @@ namespace Calendar.Controllers
             var patient = await _context.Patient.FindAsync(id);
             _context.Patient.Remove(patient);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private bool PatientExists(int id)
