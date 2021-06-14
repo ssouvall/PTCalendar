@@ -1,6 +1,7 @@
 ﻿using Calendar.Data;
 using Calendar.Models;
 using Calendar.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 //using JsonResult = System.Web.Mvc.JsonResult;
+
+
 
 namespace Calendar.Controllers
 {
@@ -25,10 +28,26 @@ namespace Calendar.Controllers
             _context = context;
         }
 
+        [Authorize]
+
         public IActionResult Index()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Landing", "Home");
+            }
+        }
+
+        public IActionResult Landing()
         {
             return View();
         }
+
+        [Authorize]
 
         [HttpPost]
         public async Task<JsonResult> CalendarData()
@@ -50,7 +69,9 @@ namespace Calendar.Controllers
                     {
                         id = item.Id.ToString(),
                         title = Patient.FullName,
+                        patientId = Patient.Id.ToString(),
                         type = item.Type,
+                        description = item.Description,
                         start = $"{item.Date.ToString("yyyy-MM-dd")}T{item.Start.TimeOfDay}",
                         end = $"{item.End.ToString("yyyy-MM-dd")}T{item.End.TimeOfDay}",
                     };
@@ -62,6 +83,8 @@ namespace Calendar.Controllers
                     {
                         id = item.Id.ToString(),
                         title = item.Name,
+                        type = item.Type,
+                        description = item.Description,
                         start = $"{item.Date.ToString("yyyy-MM-dd")}T{item.Start.TimeOfDay}",
                         end = $"{item.End.ToString("yyyy-MM-dd")}T{item.End.TimeOfDay}",
                     };
@@ -75,6 +98,7 @@ namespace Calendar.Controllers
 
             return Json(model);
         }
+
 
         public IActionResult Privacy()
         {

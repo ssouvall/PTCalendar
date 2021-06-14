@@ -79,10 +79,12 @@ namespace Calendar.Controllers
             }
 
             var @event = await _context.Event.FindAsync(id);
+            int? patientId = @event.PatientId;
             if (@event == null)
             {
                 return NotFound();
             }
+            ViewData["PatientId"] = new SelectList(_context.Patient, "Id", "FullName", patientId);
             return View(@event);
         }
 
@@ -91,7 +93,7 @@ namespace Calendar.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CompanyId,CalendarId,Name,Type,Description,Date,Start,End")] Event @event)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,PatientId,CalendarId,Name,Type,Description,Date,Start,End")] Event @event)
         {
             if (id != @event.Id)
             {
@@ -116,7 +118,7 @@ namespace Calendar.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(@event);
         }

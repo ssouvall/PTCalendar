@@ -143,16 +143,16 @@
                         if (eventObj.start) {
                             Swal.fire({
                                 title: eventObj.title,
-                                icon: 'info',
                                 html:
-                                    `<h6>Event Start: ${eventObj.start}</h6><br>` +
-                                    `<h6>Event End: ${eventObj.end}</h6>`,
+                                    `<p>Event Start: ${eventObj.start}</p><br>` +
+                                    `<p>Event End: ${eventObj.end}</p>` +
+                                    `<p>Event Visit Type: ${eventObj.type}</p><br>`,
                                 showCloseButton: true,
                                 showCancelButton: true,
                                 showDenyButton: true,
                                 focusConfirm: false,
                                 cancelButtonText:
-                                    'Details',
+                                    `<div id="swalDetails">Details Event</div>`,
                                 cancelButtonAriaLabel: 'Close',
                                 denyButtonText:
                                     `<div id="swalDelete">Delete Event</div>`,
@@ -165,6 +165,9 @@
                                     })
                             $(document).on('click', "#swalDelete", function () {
                                 window.location.href = `/Events/Delete/${eventObj.id}`
+                            });
+                            $(document).on('click', "#swalDetails", function () {
+                                window.location.href = `/Patients/Details/${eventObj.patientId}`
                             });
                         }
                     },

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace Calendar.Areas.Identity.Pages.Account
 {
@@ -19,14 +20,17 @@ namespace Calendar.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly UserManager<CalendarUser> _userManager;
+        private readonly IConfiguration _configuration;
         private readonly SignInManager<CalendarUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
         public LoginModel(SignInManager<CalendarUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<CalendarUser> userManager)
+            UserManager<CalendarUser> userManager,
+            IConfiguration configuration)
         {
             _userManager = userManager;
+            _configuration = configuration;
             _signInManager = signInManager;
             _logger = logger;
         }
@@ -62,7 +66,7 @@ namespace Calendar.Areas.Identity.Pages.Account
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/Home/Index");
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
@@ -86,7 +90,7 @@ namespace Calendar.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return RedirectToAction("Index", "Home");
                 }
                 if (result.RequiresTwoFactor)
                 {
