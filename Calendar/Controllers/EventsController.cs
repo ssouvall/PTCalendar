@@ -76,10 +76,9 @@ namespace Calendar.Controllers
             if (ModelState.IsValid)
             {
                 
-                _context.Add(@event);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
-
+                    _context.Add(@event);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index", "Home");
             }
             return View(@event);
         }
