@@ -44,6 +44,7 @@ namespace Calendar.Controllers
             }
         }
 
+        [AllowAnonymous]
         public IActionResult Landing()
         {
             return View();
