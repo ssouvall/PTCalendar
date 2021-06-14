@@ -37,7 +37,10 @@
         <p>@Model.Visit.Plan</p>
 
         <div>
-            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Visit.Id">Edit</a> |
+            @if(User.IsInRole("PhysicalTherapist"))
+            { 
+            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Visit.Id">Edit</a> 
+            }
             <a class="btn btn-outline-primary" asp-action="Details" asp-controller="Patients" asp-route-id="@Model.Patient.Id">Back</a>
         </div>
     </div>

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Calendar.Data;
 using Calendar.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Calendar.Controllers
-{
+{   
+   [Authorize] 
     public class EventsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,6 +21,7 @@ namespace Calendar.Controllers
             _context = context;
         }
 
+        
         // GET: Events
         public async Task<IActionResult> Index()
         {

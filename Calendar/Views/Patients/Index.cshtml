@@ -16,7 +16,7 @@
             <th>Last Name</th>
             <th>Date of Birth</th>
             <th>Reason for Treatment</th>
-            <th></th>
+            <th>Edit/Details</th>
     </thead>
     <tbody>
         @foreach (var item in Model)
@@ -35,9 +35,12 @@
                     @item.ReasonForVisit
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a> |
-                    <a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle"></i></a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-lg fa-edit"></i></a> 
+                    <a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-lg fa-info-circle"></i></a> 
+                    @if(User.IsInRole("Admin"))
+                    { 
+                    <a asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-lg fa-trash-alt"></i></a>
+                    }
                 </td>
             </tr>
         }

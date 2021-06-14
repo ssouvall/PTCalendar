@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 
 namespace Calendar.Controllers
 {
+    [Authorize]
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

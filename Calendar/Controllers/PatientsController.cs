@@ -9,9 +9,11 @@ using Calendar.Data;
 using Calendar.Models;
 using Calendar.Models.ViewModels;
 using X.PagedList;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Calendar.Controllers
 {
+    [Authorize]
     public class PatientsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -133,6 +135,7 @@ namespace Calendar.Controllers
             return View(patient);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Patients/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -151,6 +154,7 @@ namespace Calendar.Controllers
             return View(patient);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Patients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

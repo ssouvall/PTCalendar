@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Calendar.Data;
 using Calendar.Models;
 using Calendar.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Calendar.Controllers
 {
+    [Authorize]
     public class VisitsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -55,6 +57,8 @@ namespace Calendar.Controllers
         }
 
         // GET: Visits/Create
+
+        [Authorize(Roles = "PhysicalTherapist")]
         public IActionResult Create()
         {
 
@@ -80,6 +84,7 @@ namespace Calendar.Controllers
         }
 
         // GET: Visits/Edit/5
+        [Authorize(Roles = "PhysicalTherapist")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -96,7 +101,7 @@ namespace Calendar.Controllers
             ViewData["PatientId"] = new SelectList(_context.Patient, "Id", "FullName", patientId);
             return View(visit);
         }
-
+        [Authorize(Roles = "PhysicalTherapist")]
         // POST: Visits/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -131,7 +136,7 @@ namespace Calendar.Controllers
             }
             return View(visit);
         }
-
+        [Authorize(Roles = "PhysicalTherapist")]
         // GET: Visits/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -149,7 +154,7 @@ namespace Calendar.Controllers
 
             return View(visit);
         }
-
+        [Authorize(Roles = "PhysicalTherapist")]
         // POST: Visits/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

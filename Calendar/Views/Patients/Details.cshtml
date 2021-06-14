@@ -11,9 +11,12 @@
     </div>
     <div class="page-rightheader ml-md-auto">
         <div class="d-flex align-items-end flex-wrap my-auto right-content breadcrumb-right">
+            @if(User.IsInRole("PhysicalTherapist"))
+            {
             <div class="btn-list">
                 <a class="btn btn-primary" asp-action="Create" asp-controller="Visits"><i class="feather feather-plus fs-15 my-auto mr-2"></i>New Visit</a>
             </div>
+            }
         </div>
     </div>
 </div>
@@ -149,8 +152,6 @@
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
                     <li><a href="#tab1" data-toggle="tab">Notes</a></li>
-                    <li><a href="#tab2" data-toggle="tab">Files</a></li>
-                    <li><a href="#tab3" data-toggle="tab">Comments</a></li>
                 </ul>
             </div>
         </div>
@@ -185,10 +186,16 @@
 
                                         <td>Stephen Souvall, DPT</td>
                                         <td>
-                                            <a asp-action="Edit" asp-controller="Visits" asp-route-id="@visit.Id"><i class="fas fa-edit"></i></a> |
-                                            <a asp-action="Details" asp-controller="Visits" asp-route-id="@visit.Id"><i class="fas fa-info-circle"></i></a> |
-                                            <a asp-action="Delete" asp-controller="Visits" asp-route-id="@visit.Id"><i class="fas fa-trash-alt"></i></a>
-                                        </td>
+                                            @if (User.IsInRole("PhysicalTherapist"))
+                                            {
+                                                <a asp-action="Edit" asp-controller="Visits" asp-route-id="@visit.Id"><i class="fas fa-edit"></i></a> 
+                                            }
+                                            <a asp-action="Details" asp-controller="Visits" asp-route-id="@visit.Id"><i class="fas fa-info-circle"></i></a>
+                                            @if (User.IsInRole("PhysicalTherapist"))
+                                            {
+                                                <a asp-action="Delete" asp-controller="Visits" asp-route-id="@visit.Id"><i class="fas fa-trash-alt"></i></a>
+                                            }
+                                          </td>
                                     </tr>
                                 }
                             </tbody>
@@ -362,142 +369,6 @@
                                             <div class="d-flex">
                                                 <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye  text-primary"></i></a>
                                                 <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Edit"><i class="feather feather-edit-2  text-success"></i></a>
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Delete"><i class="feather feather-trash-2 text-danger"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane" id="tab3">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <a href="#" class="btn btn-primary btn-tableview">Upload Files</a>
-                            <table class="table  table-vcenter text-nowrap table-bordered border-bottom" id="files-tables">
-                                <thead>
-                                    <tr>
-                                        <th class="border-bottom-0 text-center w-5">No</th>
-                                        <th class="border-bottom-0">File Name</th>
-                                        <th class="border-bottom-0">Upload By</th>
-                                        <th class="border-bottom-0">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-center">1</td>
-                                        <td>
-                                            <a href="#" class="font-weight-semibold fs-14 mt-5">document.pdf<span class="text-muted ml-2">(23 KB)</span></a>
-                                            <div class="clearfix"></div>
-                                            <small class="text-muted">2 hours ago</small>
-                                        </td>
-                                        <td>Client</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye  text-primary"></i></a>
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Download"><i class="feather feather-download   text-success"></i></a>
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Delete"><i class="feather feather-trash-2 text-danger"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">2</td>
-                                        <td>
-                                            <a href="#" class="font-weight-semibold fs-14 mt-5">image.jpg<span class="text-muted ml-2">(2.67 KB)</span></a>
-                                            <div class="clearfix"></div>
-                                            <small class="text-muted">1 day ago</small>
-                                        </td>
-                                        <td>Admin</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye  text-primary"></i></a>
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Download"><i class="feather feather-download   text-success"></i></a>
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Delete"><i class="feather feather-trash-2 text-danger"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">3</td>
-                                        <td>
-                                            <a href="#" class="font-weight-semibold fs-14 mt-5">Project<span class="text-muted ml-2">(578.6MB)</span></a>
-                                            <div class="clearfix"></div>
-                                            <small class="text-muted">1 day ago</small>
-                                        </td>
-                                        <td>Team Lead</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye  text-primary"></i></a>
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Download"><i class="feather feather-download   text-success"></i></a>
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Delete"><i class="feather feather-trash-2 text-danger"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane" id="tab8">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <a href="#" class="btn btn-primary btn-tableview" data-toggle="modal" data-target="#addmilemodal">Add Milestone</a>
-                            <table class="table  table-vcenter text-nowrap table-bordered border-bottom" id="miles-tables">
-                                <thead>
-                                    <tr>
-                                        <th class="border-bottom-0 text-center w-5">No</th>
-                                        <th class="border-bottom-0">Milestone Title</th>
-                                        <th class="border-bottom-0">Milestone Cost</th>
-                                        <th class="border-bottom-0">Deadline</th>
-                                        <th class="border-bottom-0">Status</th>
-                                        <th class="border-bottom-0">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-center">1</td>
-                                        <td>
-                                            <a href="#" class="fs-14 mt-5">Responsive issues</a>
-                                        </td>
-                                        <td>$70</td>
-                                        <td>16-06-2021</td>
-                                        <td><span class="badge badge-danger-light">InCompleted</span></td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye  text-primary"></i></a>
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Eidt"><i class="feather feather-edit-3 text-success"></i></a>
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Delete"><i class="feather feather-trash-2 text-danger"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">2</td>
-                                        <td>
-                                            <a href="#" class="fs-14 mt-5">Updated Design</a>
-                                        </td>
-                                        <td>$30</td>
-                                        <td>16-02-2021</td>
-                                        <td><span class="badge badge-success-light">Completed</span></td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye  text-primary"></i></a>
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Eidt"><i class="feather feather-edit-3 text-success"></i></a>
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Delete"><i class="feather feather-trash-2 text-danger"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">3</td>
-                                        <td>
-                                            <a href="#" class="fs-14 mt-5">Add the rating plugin</a>
-                                        </td>
-                                        <td>$80</td>
-                                        <td>21-04-2021</td>
-                                        <td><span class="badge badge-danger-light">InCompleted</span></td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="View"><i class="feather feather-eye  text-primary"></i></a>
-                                                <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Eidt"><i class="feather feather-edit-3 text-success"></i></a>
                                                 <a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Delete"><i class="feather feather-trash-2 text-danger"></i></a>
                                             </div>
                                         </td>
