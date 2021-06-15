@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    
 }
 
 <section class="calendar-section">
@@ -58,6 +59,13 @@
     <div>
         <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Back to Home</a>
     </div>
+    @if(TempData["Status"] == "Fail")
+            {
+        <script>
+            alert('Please choose a future date that does not overlap with other appointments')
+        </script>
+                
+            }
 </section>
 
 @section Scripts {

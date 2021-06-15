@@ -63,6 +63,7 @@ namespace Calendar.Controllers
         public IActionResult Create()
         {
             ViewData["PatientId"] = new SelectList(_context.Patient, "Id", "FullName");
+            TempData["Status"] = "";
             return View();
         }
 
@@ -75,11 +76,38 @@ namespace Calendar.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
+                //@event.Start = new DateTime(@event.Date.Date, @event.Start.TimeOfDay);
+                @event.Start = new DateTime(@event.Date.Year, @event.Date.Month, @event.Date.Day, @event.Start.Hour, @event.Start.Minute, @event.Start.Second);
+
+                //@event.End = new DateTimeOffset(@event.Date.Date,@event.End.TimeOfDay);
+                @event.End = new DateTime(@event.Date.Year, @event.Date.Month, @event.Date.Day, @event.End.Hour, @event.End.Minute, @event.End.Second);
+
+
+                // bool overlap = (event1.start < event2.end) && (event2.start < event1.end);
+                var events =await  _context.Event.ToListAsync();
+
+                bool overlap = events.Any(e => e.Start < @event.End && @event.Start < e.End);
+
+                if (overlap == false && @event.Start >= DateTime.Now)
+                {
+                    if(@event.Type == "0")
+                    {
+                        @event.Type = "Initial Evaluation";
+                    }
+                    else if(@event.Type == "1")
+                    {
+                        @event.Type = "Follow-Up";
+                    }
                     _context.Add(@event);
                     await _context.SaveChangesAsync();
+                    TempData["Status"] = "Success";
                     return RedirectToAction("Index", "Home");
+                }
             }
+            ViewData["PatientId"] = new SelectList(_context.Patient, "Id", "FullName");
+            TempData["Status"] = "Fail";
+
             return View(@event);
         }
 
@@ -98,6 +126,7 @@ namespace Calendar.Controllers
                 return NotFound();
             }
             ViewData["PatientId"] = new SelectList(_context.Patient, "Id", "FullName", patientId);
+            TempData["Status"] = "";
             return View(@event);
         }
 
@@ -117,8 +146,31 @@ namespace Calendar.Controllers
             {
                 try
                 {
-                    _context.Update(@event);
-                    await _context.SaveChangesAsync();
+                    @event.Start = new DateTime(@event.Date.Year, @event.Date.Month, @event.Date.Day, @event.Start.Hour, @event.Start.Minute, @event.Start.Second);
+
+                    @event.End = new DateTime(@event.Date.Year, @event.Date.Month, @event.Date.Day, @event.End.Hour, @event.End.Minute, @event.End.Second);
+
+
+                    var events = await _context.Event.Where(e => e.Id != @event.Id).ToListAsync();
+
+                    bool overlap = events.Any(e => e.Start < @event.End && @event.Start < e.End);
+
+                    if (overlap == false && @event.Start >= DateTime.Now)
+                    {
+                        if (@event.Type == "0")
+                        {
+                            @event.Type = "Initial Evaluation";
+                        }
+                        else if (@event.Type == "1")
+                        {
+                            @event.Type = "Follow-Up";
+                        }
+                        _context.Update(@event);
+                        await _context.SaveChangesAsync();
+                        TempData["Status"] = "Success";
+                        return RedirectToAction("Index", "Home");
+                    }
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -131,8 +183,10 @@ namespace Calendar.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "Home");
+                TempData["Status"] = "Fail";
+                return View(@event);
             }
+            TempData["Status"] = "Fail";
             return View(@event);
         }
 

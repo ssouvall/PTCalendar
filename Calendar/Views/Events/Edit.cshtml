@@ -1,4 +1,4 @@
-﻿@using Calendar.Models.Enums 
+﻿@using Calendar.Models.Enums
 @model Calendar.Models.Event
 
 @{
@@ -56,7 +56,15 @@
         </form>
 
     </div>
+    @if (TempData["Status"] == "Fail")
+    {
+        <script>
+            alert('Please choose a future date that does not overlap with other appointments')
+        </script>
+
+    }
 </section>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

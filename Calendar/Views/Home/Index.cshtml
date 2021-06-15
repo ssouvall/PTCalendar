@@ -1,6 +1,7 @@
 ﻿@model Calendar.Models.ViewModels.HomeIndexViewModel
 @{
     ViewData["Title"] = "Home Page";
+
 }
 
 <!-- App-content opened -->
@@ -145,13 +146,12 @@
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
                     },
                     events: result,
-                    editable: true,
                     select: function (start, end) {
                         if (start.isBefore(moment())) {
                             $('#calendar').fullCalendar('unselect');
                             return false;
                         }
-                    }
+                    },
                 });
 
                 calendar.render();
@@ -165,4 +165,7 @@
         });
 
     </script>
+<script>
+
+</script>
 }
