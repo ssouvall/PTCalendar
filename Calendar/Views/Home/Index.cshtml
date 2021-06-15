@@ -146,7 +146,12 @@
                     },
                     events: result,
                     editable: true,
-
+                    select: function (start, end) {
+                        if (start.isBefore(moment())) {
+                            $('#calendar').fullCalendar('unselect');
+                            return false;
+                        }
+                    }
                 });
 
                 calendar.render();

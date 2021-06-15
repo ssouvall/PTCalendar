@@ -66,7 +66,7 @@ namespace Calendar.Controllers
             {
                 Patient Patient = await _context.Patient.FirstOrDefaultAsync(p => p.Id == item.PatientId);
 
-                if (item.PatientId != 0)
+                if (item.Type == "Initial Evaluation")
                 {
                     EventData eventData = new()
                     {
@@ -77,6 +77,7 @@ namespace Calendar.Controllers
                         description = item.Description,
                         start = $"{item.Date.ToString("yyyy-MM-dd")}T{item.Start.TimeOfDay}",
                         end = $"{item.End.ToString("yyyy-MM-dd")}T{item.End.TimeOfDay}",
+                        color = "green"
                     };
                     temp.Add(eventData);
                 }
@@ -85,11 +86,12 @@ namespace Calendar.Controllers
                     EventData eventData = new()
                     {
                         id = item.Id.ToString(),
-                        title = item.Name,
+                        title = Patient.FullName,
+                        patientId = Patient.Id.ToString(),
                         type = item.Type,
                         description = item.Description,
                         start = $"{item.Date.ToString("yyyy-MM-dd")}T{item.Start.TimeOfDay}",
-                        end = $"{item.End.ToString("yyyy-MM-dd")}T{item.End.TimeOfDay}",
+                        end = $"{item.End.ToString("yyyy-MM-dd")}T{item.End.TimeOfDay}"
                     };
                     temp.Add(eventData);
                 }

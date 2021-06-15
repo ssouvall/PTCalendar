@@ -53,18 +53,7 @@
                                 </td>
                                 <td>:</td>
                                 <td class="appt-details">
-                                    @{
-                                        string Type = Model.Event.Type;
-                                    }
-                                    @if (Type == "0")
-                                    {
-                                        <span class="badgey">Initial Evaluation</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge">Follow-Up</span>
-                                    }
-
+                                    <span class="badge">@Model.Event.Type</span>
                                 </td>
                             </tr>
                             <tr>

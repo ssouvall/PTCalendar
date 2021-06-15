@@ -11,7 +11,6 @@ namespace Calendar.Models.Enums
         [Display(Name = "Initial Evaluation")]
         InitialEvaluation,
         [Display(Name = "Follow-Up")]
-        FollowUp,
-        Meeting
+        FollowUp
     }
 }
