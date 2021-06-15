@@ -32,7 +32,6 @@ Pro-Chart is a calendar and mock physical therapy electronic medical records app
 ##### Calendar
 -Graphical calendar with day, week, and month views \
 -Ability to add, read, update, and delete patient appointments \
--Ability to drag and drop appointments to new locations \
 -Rules limiting appointments to be made for dates in the past \
 -Rule of only one visit per hour \
 -Ability to to click on calendar appointment and see appointment details, where you can navigate to patient chart, edit appointment, or delete appointment 
