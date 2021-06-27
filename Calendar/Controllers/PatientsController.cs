@@ -92,7 +92,10 @@ namespace Calendar.Controllers
                 return NotFound();
             }
 
+
+
             var patient = await _context.Patient.FindAsync(id);
+
             if (patient == null)
             {
                 return NotFound();
@@ -105,7 +108,7 @@ namespace Calendar.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,DateOfBirth,Gender,Address,City,State,Zip,HomePhone,WorkPhone,CellPhone,FaxNumber,Email,CompanyId,AvatarFileName,AvatarFileData,AvatarContentType")] Patient patient)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,DateOfBirth,Gender,Address,City,State,Zip,HomePhone,WorkPhone,CellPhone,FaxNumber,Email,CompanyId,AvatarFileName,AvatarFileData,AvatarContentType,ReasonForVisit")] Patient patient)
         {
             if (id != patient.Id)
             {
